@@ -7,7 +7,7 @@ import (
 )
 
 type company struct {
-	ID			string `json:"id"`
+	ID		string `json:"id"`
 	Name 		string `json:"name"`
 	Domain 		string `json:"domain"`
 }
@@ -29,14 +29,14 @@ func main() {
 	// todo: set up logging
 
 	// Operations on individual companies.
-	router.PUT("/c/:name/put", putCompanyByName)
-	router.DELETE("/c/:name/delete", deleteCompanyByName)
-	router.GET("/c/:name", getCompanyByName)
+	router.PUT("/c/:id/put", putCompanyByID)
+	router.DELETE("/c/:id/delete", deleteCompanyByID)
+	router.GET("/c/:id", getCompanyByID)
 
 	// Operations on work locations associated with a company.
-	router.PUT("/c/:name/locations/put", putLocationsByCompanyID)
-	router.PUT("/c/:name/locations/delete",deleteLocationsByCompanyID)
-	router.GET("/c/:name/locations", getLocationsByCompanyID)
+	router.PUT("/c/:id/locations/put", putLocationsByCompanyID)
+	router.PUT("/c/:id/locations/delete",deleteLocationsByCompanyID)
+	router.GET("/c/:id/locations", getLocationsByCompanyID)
 
 	// Start API endpoints.
 	router.Run()
@@ -45,7 +45,7 @@ func main() {
 
 //todo: replace this with a database backing store.
 var companies = map[string]*company {
-	"ufl": {ID:"ufl", Name: "University of Florida",  Domain: "@ufl.edu"},
+	"ufl": {ID:"ufl", Name: "University of Florida",  Domain: "ufl.edu"},
 }
 
 var locations = map[string]*location {
@@ -56,15 +56,15 @@ var workLocations = map[string][]*workLocation {
 	"ufl": {{CompanyID: "ufl", PlusCode: "JMW2+JR"}},
 }
 
-func getCompanyByName(c *gin.Context) {
-	if companies[c.Param("name")] != nil {
-		c.IndentedJSON(http.StatusOK, *companies[c.Param("name")])
+func getCompanyByID(c *gin.Context) {
+	if companies[c.Param("id")] != nil {
+		c.IndentedJSON(http.StatusOK, *companies[c.Param("id")])
 	} else {
-		c.String(http.StatusNotFound, "company with id "+c.Param("name")+" not found")
+		c.String(http.StatusNotFound, "company with id "+c.Param("id")+" not found")
 	}
 }
 
-func putCompanyByName(c *gin.Context) {
+func putCompanyByID(c *gin.Context) {
 	var newCompany company
 	if err := c.BindJSON(&newCompany); err != nil {
 		return
@@ -73,14 +73,14 @@ func putCompanyByName(c *gin.Context) {
 	companies[newCompany.ID] = &newCompany
 }
 
-func deleteCompanyByName(c *gin.Context) {
-	companies[c.Param("name")] = nil
+func deleteCompanyByID(c *gin.Context) {
+	companies[c.Param("id")] = nil
 }
 
 func getLocationsByCompanyID(c *gin.Context) {
 	ret := make ([]location, 5)
-	for i := range workLocations[c.Param("name")] {
-		plusCode := workLocations[c.Param("name")][i].PlusCode
+	for i := range workLocations[c.Param("id")] {
+		plusCode := workLocations[c.Param("id")][i].PlusCode
 		ret = append(ret, *locations[plusCode])
 	}
 	c.IndentedJSON(http.StatusOK, ret)
@@ -93,17 +93,17 @@ func putLocationsByCompanyID(c *gin.Context) {
 		return
 	}
 
-	workLocations[c.Param("name")] = make ([]*workLocation, len(newLocations))
+	workLocations[c.Param("id")] = make ([]*workLocation, len(newLocations))
 
 	for i := range newLocations {
 		var newWorkLocation *workLocation
-		newWorkLocation.CompanyID = c.Param("name")
+		newWorkLocation.CompanyID = c.Param("id")
 		newWorkLocation.PlusCode = newLocations[i].PlusCode
 		locations[newLocations[i].PlusCode] = &newLocations[i]
-		workLocations[c.Param("name")] = append(workLocations[c.Param("name")], newWorkLocation)
+		workLocations[c.Param("id")] = append(workLocations[c.Param("id")], newWorkLocation)
 	}
 }
 
 func deleteLocationsByCompanyID(c *gin.Context) {
-	workLocations[c.Param("name")] = nil
+	workLocations[c.Param("id")] = nil
 }
