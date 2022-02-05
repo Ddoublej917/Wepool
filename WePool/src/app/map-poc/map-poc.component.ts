@@ -35,6 +35,16 @@ export class MapPOCComponent implements OnInit {
     });
   }
 
+  ngOnChange() {
+    this.loader.load().then(() => {
+      this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+        center: { lat: 0, lng: 0 },
+        zoom: 3,
+      });
+      this.geocoder = new google.maps.Geocoder();
+    });
+  }
+
   //Accesses location-autocomplete component in HTML of id search
   @ViewChild('search' /* #name or Type*/, {static: false}) search;
 

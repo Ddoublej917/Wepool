@@ -1,17 +1,14 @@
 <div id="wrapper">
     <div class="body" id="map" style="width: 100vw; height: 100vh"></div>
     <!Google API code for floating-panel to ensure Angular Material objects are above map>
-    <div class="card-wrapper" id="floating-panel">
-        <mat-card class="example-card" id="card">
-          <mat-card-header>
-            <mat-card-title>Find your Route!</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <AutocompleteComponent #search id="search"></AutocompleteComponent>
-            <button mat-raised-button id="submit" (click)="initRoute()">Submit</button>
-            <a id="link" mat-raised-button href={{link}} target="_blank">Directions</a>
-          </mat-card-content>
-        </mat-card>
-      
-      </div>
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>Find your Route!</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <AutocompleteComponent #search class="search"></AutocompleteComponent>
+          <button mat-raised-button class="submit" (click)="initRoute()">Submit</button>
+          <a class="link" mat-raised-button href={{link}} target="_blank">Directions</a>
+        </mat-card-content>
+      </mat-card>
  </div>

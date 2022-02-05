@@ -1,0 +1,23 @@
+<mat-card id="body" class="card">
+    <mat-label class="question">{{question}}</mat-label>
+    <div [ngSwitch]="type" class="type">
+        <span *ngSwitchCase="'slider'" class="slider">
+            <span class="text">Strongly Disagree&nbsp;</span>
+            <mat-slider #slider (change)="updateElement($event)" min="1" max="5" step="1" value="1" thumbLabel="true"></mat-slider>
+            <span class="text">Strongly Agree</span>
+        </span>
+        <span *ngSwitchCase="'checkbox'" class="checkbox">
+            <span class="text">Off&nbsp;</span>
+            <mat-slide-toggle #checkbox (change)="updateCheckbox($event)" color="primary"></mat-slide-toggle>
+            <span class="text">&nbsp;On</span>
+        </span>
+        <span *ngSwitchCase="'textbox'" class="textbox">
+            <mat-form-field>
+                <mat-label>Origin</mat-label>
+                <input matInput #inputText (change)="updateInput($event)" [(ngModel)]="input">
+            </mat-form-field>
+        </span>
+        <h2 *ngSwitchDefault>Default</h2>
+    </div>
+</mat-card>
+<button (click)="test()">test</button>

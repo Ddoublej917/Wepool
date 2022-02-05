@@ -1,0 +1,34 @@
+.question {
+    font-family: 'Helvetica', sans-serif;
+    font-size: large;
+    width: 65%;
+    display:inline-block;
+}
+.text {
+    font-family: 'Helvetica', sans-serif;
+    font-size: small;
+}
+.type {
+    position: relative;
+    flex: 1;
+}
+.card {
+    position: static;
+    width: 95%;
+    margin-top: 10px;
+    background-color: rgb(255, 247, 247);
+    display: flex;
+}
+.slider {
+    position: relative;
+    top: 10px;
+}
+.checkbox {
+    position: relative;
+    left: 150px;
+    top: 10px;
+}
+.textbox {
+    position: relative;
+    top: 10px;
+}
