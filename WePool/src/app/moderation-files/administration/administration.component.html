@@ -1,6 +1,7 @@
 <div [ngSwitch]="userType" class="type">
     <span *ngSwitchCase="'signedIn'">
         <group-view></group-view>
+        <add-group></add-group>
     </span>
     <span *ngSwitchCase="'loggedOut'" class="infoText">
         <h1>Please log in!</h1>

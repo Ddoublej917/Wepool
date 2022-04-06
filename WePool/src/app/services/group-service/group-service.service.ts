@@ -42,6 +42,16 @@ export class GroupServiceService {
       }
     );
   }  
+
+  //Add group when current group does not fit preferences
+  addGroup() {
+    //Load user
+    let user = "renzo"
+    //Load company
+    let company = "one"
+    //Add group using user and company
+    //this.http.put();
+  }
 }
 
 function parseJSON(data: any) {

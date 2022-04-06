@@ -9,7 +9,7 @@ import { ProfileComponent } from './profile/profile.component'; //Will change wh
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { AdministrationComponent, ModerationComponent } from './moderation-files';
+import { AdministrationComponent, ModerationComponent, AddGroupComponent} from './moderation-files';
 import { SurveyComponent, LocationAutocompleteComponent, QuestionComponent, QuestionLoaderComponent } from './profile';
 import { MapPOCComponent, CarpoolsComponent, GroupInfoComponent } from './carpool-files';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -45,7 +45,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     GroupViewComponent,
     AdministrationComponent,
     ModerationComponent,
-    ModComponent
+    ModComponent,
+    AddGroupComponent
   ],
   imports: [
     BrowserAnimationsModule,
