@@ -12,21 +12,14 @@ export class UserService {
   constructor(private http: HttpClient, public groupService: GroupService) { }
 
   //Pass in user, build url to get profile info
-  async getUser(user : string) {
-    let url = user;
-    /*return this.http.post("http://localhost:8000/employee/profile",
+  async getUser() {
+    return this.http.post("http://localhost:8000/employee/profile",
     {
-      "workEmail": user
+      "workEmail": localStorage.getItem("email")
     }).toPromise()
     .then(
       res => { // Success
         console.log(res);
-        return parseJSON(res);
-      }
-    );*/
-    return this.http.get(this._userUrl).toPromise()
-    .then(
-      res => { // Success
         return parseJSON(res);
       }
     );
@@ -34,7 +27,7 @@ export class UserService {
 
   //Compares preferences between user and group and returns the amount of matches
   async comparePrefs(group: any): Promise<number>{
-    let userData = await this.getUser("renzo");
+    let userData = await this.getUser();
     userData = userData.Preferences;
     let groupData = group.Preferences;
     let count = 3;

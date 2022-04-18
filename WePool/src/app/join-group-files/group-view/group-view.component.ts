@@ -15,7 +15,7 @@ export class GroupViewComponent implements OnInit {
   matches: {index: number, matches: number}[] = [];
 
   async ngOnInit(): Promise<void> {
-    this.groups = await this.groupService.getGroups("one");
+    this.groups = await this.groupService.getGroups();
     for(let i: number = 0; i < this.groups.length; i++) {
         console.log(this.groups[i]);
         let val = await this.userService.comparePrefs(this.groups[i]);

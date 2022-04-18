@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupServiceService } from 'src/app/services/group-service/group-service.service';
+import { GroupService } from 'src/app/services/group-service/group.service';
 
 @Component({
   selector: 'user-report',
@@ -8,13 +8,13 @@ import { GroupServiceService } from 'src/app/services/group-service/group-servic
 })
 export class UserReportComponent implements OnInit {
 
-  constructor(public userService : GroupServiceService) { }
+  constructor(public userService : GroupService) { }
 
   ngOnInit(): void {
   }
 
-  sendReport(report: string) {
-    this.userService.sendReport(report);
+  sendReport(offEmail: string, report: string) {
+    this.userService.sendReport(offEmail, report);
   }
 
 }

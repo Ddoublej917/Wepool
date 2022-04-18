@@ -12,8 +12,11 @@ export class JoinGroupComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    //Initialize user type on initialization of page. Load in potential groups on user, "Please sign in!" on not signed in, 
-    //and "Group Selected!" on group already selected.
+    /*Initialize user type on initialization of page. Load in potential groups on user, "Please sign in!" on not signed in, 
+    and "Group Selected!" on group already selected.*/
+    if (localStorage.getItem("email") == "") {
+      this.userType = ""
+    } 
     this.userType = "groupSelected";
   }
 }

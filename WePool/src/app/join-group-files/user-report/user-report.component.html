@@ -4,10 +4,14 @@
     <mat-card-content>
         <form class="form">  
             <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Offender Email"</mat-label>
+                <input matInput #offEmail value="">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
                 <mat-label>Ex. A member in my group..."</mat-label>
                 <textarea matInput #report value=""></textarea>
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="sendReport(report.value)">Submit</button>
+            <button mat-raised-button color="primary" (click)="sendReport(offEmail.value, report.value)">Submit</button>
         </form>
     </mat-card-content>
 </mat-card>
