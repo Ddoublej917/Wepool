@@ -17,9 +17,7 @@ export class GroupViewComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.groups = await this.groupService.getGroups();
     for(let i: number = 0; i < this.groups.length; i++) {
-        console.log(this.groups[i]);
         let val = await this.userService.comparePrefs(this.groups[i]);
-        console.log(val);
         this.matches.push({"index": i, "matches": val});
     }
     this.matches.sort(function (a, b) {
@@ -28,8 +26,7 @@ export class GroupViewComponent implements OnInit {
         if (a.matches > b.matches)
             return -1;
         return 0;
-    })
-    console.log(this.matches);
+    });
   }
 
   //Add user to group

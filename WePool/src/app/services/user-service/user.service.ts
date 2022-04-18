@@ -45,6 +45,17 @@ export class UserService {
     return count;
   }
 
+  updateUserProfile(userInfo) {
+    let workEmail = "renzo@ufl.edu"
+    this.http.put("http://localhost:8000/employee/preferences", {
+      "workEmail": workEmail,
+      "preferences": userInfo.preferences,
+      "homeLocation": userInfo.homeLocation,
+      "profile": userInfo.profile,
+      "workLocation": userInfo.workLocation
+    })
+  }
+
   //Converts phone number to formatted version
   parsePhoneNumber(phoneNum: string): string {
     let formattedNum = "";

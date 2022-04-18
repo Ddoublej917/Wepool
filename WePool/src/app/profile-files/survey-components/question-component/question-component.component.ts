@@ -15,9 +15,9 @@ export class QuestionComponent implements OnInit {
   @Output() newItemEvent = new EventEmitter<string>();
 
   companys = [
-    {value: 'one1'},
-    {value: 'two2'},
-    {value: 'three3'},
+    {value: 'UF'},
+    {value: 'UFPD'},
+    {value: 'McDonalds'},
   ];
   value;
   @ViewChild('search' , {static: false}) search;
