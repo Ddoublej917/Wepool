@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class LoginComponent implements OnInit {
+  user = '0'
   username:string;
   password:string;
   rusername:string;
@@ -21,7 +22,10 @@ export class LoginComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {
+  ngOnInit()  {
+    localStorage.removeItem('SessionUser');
+    localStorage.removeItem('IsMod');
+    localStorage.setItem('email','blank')
   }
 
   authServiceR(){
@@ -33,11 +37,15 @@ export class LoginComponent implements OnInit {
   }
 
   register() {
+    localStorage.setItem('SessionUser','1')
+    localStorage.setItem('email',this.rusername)
     this.authServiceR().subscribe(
       (res) => {
         if (res.status == 201) {
           console.log(res);
+          localStorage.setItem('SessionUser','1')  
           this.router.navigate(['/profile']);
+          
         }
         else if (res.status == 409) {
           console.log(res);
@@ -57,10 +65,14 @@ export class LoginComponent implements OnInit {
     
 
   login() {
+    localStorage.setItem('SessionUser','1')
+    localStorage.setItem('IsMod','1')
+    localStorage.setItem('email',this.username)
     this.authServiceL().subscribe(
       (res) => {
         if (res.status == 200) {
           console.log(res);
+          localStorage.setItem('SessionUser','1')  
           this.router.navigate(['/home']);
         }
         else if (res.status == 401) {

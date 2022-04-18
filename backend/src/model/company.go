@@ -8,4 +8,6 @@ type Company struct {
 	Domain        string         `json:"domain"`
 	Locations     []Location     `json:"locations"`
 	CarpoolGroups []CarpoolGroup `json:"carpoolGroups"`
+	Employees []Employee `json:"employees"`
+	Reports []Report `json:"reports"`
 }

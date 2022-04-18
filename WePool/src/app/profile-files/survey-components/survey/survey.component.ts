@@ -13,7 +13,7 @@ export class SurveyComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //Questions that will be used for now. 
+  //Questions that will be used for now
   questions = [{question: "Personal Info", type: "label"},
                {question: "My full name is...", type: "textbox"},
                {question: "My address is...", type: "address"},

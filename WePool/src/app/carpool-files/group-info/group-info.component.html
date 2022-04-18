@@ -4,15 +4,15 @@
             <mat-expansion-panel class="mat-elevation-z0">
                 <mat-expansion-panel-header class="accordion">
                 <mat-panel-title>
-                    <b>Rider {{i+1}}: {{rider.name}}</b>
+                    <b>Rider {{i+1}}: {{rider.Profile.FirstName}} {{rider.Profile.LastName}}</b>
                 </mat-panel-title>
                 </mat-expansion-panel-header>
                 <b>Name: </b>
-                <p>{{rider.name}}</p>
+                <p>{{rider.Profile.FirstName}} {{rider.Profile.LastName}}</p>
                 <b>Gender:</b>
-                <p>{{rider.gender}}</p>
+                <p>{{rider.Profile.Gender}}</p>
                 <b>Phone Number: </b>
-                <p>{{rider.phoneNum}}</p>
+                <p>{{phoneNums[i]}}</p>
             </mat-expansion-panel>
         </div>
     </mat-accordion>

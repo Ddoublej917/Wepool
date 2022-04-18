@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthguardServiceService } from '../services/Authguard-service/authguard-service.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor( public userService: AuthguardServiceService) {
+    if(!this.userService.gettoken()){
+      this.ngOnInit()
+    }
+   }
+
+ email = localStorage.getItem("email");
+
 
   ngOnInit(): void {
+  
   }
+
+  get GetUsername(): string
+   {
+     return localStorage.getItem("email");
+   }
 
 }

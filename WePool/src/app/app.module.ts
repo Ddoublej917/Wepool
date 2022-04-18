@@ -5,19 +5,19 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app-files/app.component';
 
-import { ProfileComponent } from './profile/profile.component'; //Will change when previous pull request comes in
+import { ProfileComponent } from './profile-files/profile.component'; //Will change when previous pull request comes in
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { AdministrationComponent, ModerationComponent, UserReportComponent} from './moderation-files';
-import { SurveyComponent, LocationAutocompleteComponent, QuestionComponent, QuestionLoaderComponent } from './profile';
+import { ModerationComponent } from './moderation-files';
+import { SurveyComponent, LocationAutocompleteComponent, QuestionComponent, QuestionLoaderComponent } from './profile-files';
 import { MapPOCComponent, CarpoolsComponent, GroupInfoComponent } from './carpool-files';
+import { GroupViewComponent, JoinGroupComponent, UserReportComponent } from './join-group-files';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './account-files';
 import { MaterialModule } from './modules/material.module';
 import { HomeComponent } from './home-files';
 import { GroupRouterComponent } from './carpool-files/group-router/group-router.component';
-import { GroupViewComponent } from './moderation-files/group-view/group-view.component';
 import { ModComponent } from './mod/mod.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
@@ -25,7 +25,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
-
+import { AuthguardServiceService } from './services/Authguard-service/authguard-service.service';
+import { ModAuthguardService } from './services/Authguard-service/mod_authguard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,10 +44,10 @@ import { LayoutModule } from '@angular/cdk/layout';
     QuestionComponent,
     QuestionLoaderComponent,
     GroupViewComponent,
-    AdministrationComponent,
     ModerationComponent,
     ModComponent,
-    UserReportComponent
+    UserReportComponent,
+    JoinGroupComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -62,7 +63,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatButtonModule,
     LayoutModule
   ],
-  providers: [],
+  providers: [AuthguardServiceService, ModAuthguardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,28 @@
+<mat-grid-list cols="2" rowHeight="3:1">
+    <mat-grid-tile *ngFor="let group of groups; index as i;">
+        <mat-card class="card">
+            <mat-card-title>Group {{i+1}}</mat-card-title>
+            <div *ngIf="i==0; else elseBlock">
+                <mat-card-subtitle>Recommended group!</mat-card-subtitle>
+            </div>
+            <ng-template #elseBlock>
+                <mat-card-subtitle>Other option!</mat-card-subtitle>
+            </ng-template>
+            <mat-card-content>
+                <span>Riders:</span>
+                <span *ngFor="let user of group.Employees; index as k" >
+                    {{user.Profile.FirstName}}
+                </span>
+                <div>
+                    Preference match: {{matches[i].matches}}/6
+                </div>
+                <div>
+                    Destination: {{group.Location}}
+                </div>
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button #i mat-raised-button (click)="joinGroup(i)">Join Group!</button>
+            </mat-card-actions>
+        </mat-card> 
+    </mat-grid-tile>
+</mat-grid-list>

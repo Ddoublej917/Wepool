@@ -1,22 +1,170 @@
 {
-    "userData": {
-        "email": "renzopretto20000@gmail.com",
-        "name": "Renzo Pretto",
-        "gender": "male",
-        "phoneNum": "(305)930-3207",
-        "preferences": [
+    "WorkEmail": "renzopretto20000@gmail.com",
+    "Password": "123",
+    "Preferences": [
+        "Empty",
+        "Renzo",
+        "9120",
+        "123",
+        "Empty",
+        1,
+        1,
+        1,
+        "Empty",
+        true,
+        false,
+        true
+    ],
+    "PreferencesID": 123,
+    "CarpoolGroupID": 1,
+    "CarpoolGroup": {
+        "ID": 1,
+        "CreatedAt": 1529644667834,
+        "CompanyID": 1,
+        "Location" : "Reitz Student Union, Gainesville, FL, USA",
+        "PreferencesID": 1,
+        "CarCapacity": 4,
+        "Employees" : [
+            {   
+                "WorkEmail": "ganesh@gmail.com",
+                "Password": "123",
+                "Preferences": [
+                    "Empty",
+                    "Ganesh",
+                    "2800 Southwest 35th Place, Gainesville, FL, USA",
+                    "123",
+                    "Empty",
+                    4,
+                    4,
+                    4,
+                    "Empty",
+                    true,
+                    false,
+                    true
+                ],
+                "PreferencesID": 123,
+                "CarpoolGroupID": 1,
+                "HomeLocation": "2800 Southwest 35th Place, Gainesville, FL, USA",
+                "Profile": {
+                    "FirstName": "Ganesh",
+                    "LastName": "Sundar",
+                    "Gender": "Male",
+                    "PhoneNumber": "3054563207"
+                },
+                "Reports": [],
+                "CompanyID": 1
+            },
+            {  
+                "WorkEmail": "renzopretto20000@gmail.com",
+                "Password": "123",
+                "Preferences": [
+                    "Empty",
+                    "Renzo",
+                    "311 Southwest 13th Street, Gainesville, FL, USA",
+                    "123",
+                    "Empty",
+                    4,
+                    4,
+                    4,
+                    "Empty",
+                    true,
+                    false,
+                    true
+                ],
+                "PreferencesID": 123,
+                "CarpoolGroupID": 1,
+                "HomeLocation": "311 Southwest 13th Street, Gainesville, FL, USA",
+                "Profile": {
+                    "FirstName": "Renzo",
+                    "LastName": "Pretto",
+                    "Gender": "Male",
+                    "PhoneNumber": "3059303207"
+                },
+                "Reports": [],
+                "CompanyID": 1
+            },
+            {  
+                "WorkEmail": "daniel@gmail.com",
+                "Password": "123",
+                "Preferences": [
+                    "Empty",
+                    "Daniel",
+                    "112 Center Drive, Gainesville, FL, USA",
+                    "123",
+                    "Empty",
+                    4,
+                    4,
+                    4,
+                    "Empty",
+                    true,
+                    false,
+                    true
+                ],
+                "PreferencesID": 123,
+                "CarpoolGroupID": 1,
+                "HomeLocation": "112 Center Drive, Gainesville, FL, USA",
+                "Profile": {
+                    "FirstName": "Daniel",
+                    "LastName": "Johnson",
+                    "Gender": "Male",
+                    "PhoneNumber": "3057893207"
+                },
+                "Reports": [],
+                "CompanyID": 1
+            },
+            {  
+                "WorkEmail": "chris@gmail.com",
+                "Password": "123",
+                "Preferences": [
+                    "Empty",
+                    "Chris",
+                    "320 Southeast 3rd Street, Gainesville, FL, USA",
+                    "123",
+                    "Empty",
+                    4,
+                    4,
+                    4,
+                    "Empty",
+                    true,
+                    false,
+                    true
+                ],
+                "PreferencesID": 123,
+                "CarpoolGroupID": 1,
+                "HomeLocation": "320 Southeast 3rd Street, Gainesville, FL, USA",
+                "Profile": {
+                    "FirstName": "Chris",
+                    "LastName": "Phang",
+                    "Gender": "Male",
+                    "PhoneNumber": "3051233207"
+                },
+                "Reports": [],
+                "CompanyID": 1
+            }
+        ],
+        "id": 1,
+        "Preferences": [
             "Empty",
             "Renzo",
             "9120",
             "123",
             "Empty",
-            4,
-            4,
-            4,
+            5,
+            5,
+            5,
             "Empty",
             true,
             false,
             true
         ]
-    }
+    },
+    "HomeLocation": "311 sw 13th St",
+    "Profile": {
+        "FirstName": "Renzo",
+        "LastName": "Pretto",
+        "Gender": "Male",
+        "PhoneNumber": "3059303207"
+    },
+    "Reports": [],
+    "CompanyID": 1
 }

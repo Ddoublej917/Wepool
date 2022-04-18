@@ -5,6 +5,15 @@
 
 ## Usage
 
+#### func  AddEmployeeToCarpoolGroup
+
+```go
+func AddEmployeeToCarpoolGroup(c *gin.Context)
+```
+POST /AddEmployeeToCarpoolGroup Given an employee workEmail and a
+carpoolGroupID, try adding the related employee to the carpoolGroup. May return
+OK, NotFound, BadRequest
+
 #### func  CreateCompany
 
 ```go
@@ -16,6 +25,14 @@ func CreateCompany(c *gin.Context)
 ```go
 func CreateLocation(c *gin.Context)
 ```
+
+#### func  GetCarpoolGroupsByCompanyName
+
+```go
+func GetCarpoolGroupsByCompanyName(c *gin.Context)
+```
+GET /GetCarpoolGroupsByCompanyName Given a company name, return the list of
+CarpoolGroups associated with it. May return OK, NotFound, BadRequest
 
 #### func  Login
 
@@ -56,6 +73,16 @@ func UserSignup(c *gin.Context)
 ```
 POST /employee Create a new employee. May return OK, BadRequest
 
+#### type AddUserToCarpoolGroupInput
+
+```go
+type AddUserToCarpoolGroupInput struct {
+	WorkEmail      string `json:"workEmail" binding:"required"`
+	CarpoolGroupID uint   `json:"carpoolGroupID" binding:"required"`
+}
+```
+
+
 #### type AuthenticationInput
 
 ```go
@@ -92,5 +119,14 @@ type CreateCompanyInput struct {
 type CreateEmployeeInput struct {
 	WorkEmail string `json:"workEmail" binding:"required"`
 	Password  string `json:"password" binding:"required"`
+}
+```
+
+
+#### type GetCarpoolGroupsByCompanyNameInput
+
+```go
+type GetCarpoolGroupsByCompanyNameInput struct {
+	Name string `json:"name" binding:"required"`
 }
 ```

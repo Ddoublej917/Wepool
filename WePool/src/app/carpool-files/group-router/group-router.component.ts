@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { GlobalConstants } from 'src/app/common/global-constants';
-import { GroupServiceService } from 'src/app/services/group-service/group-service.service';
+import { GroupService } from 'src/app/services/group-service/group.service';
 
 @Component({
   selector: 'group-router',
@@ -16,7 +16,7 @@ export class GroupRouterComponent implements OnInit {
   groupInfo : any;
   link : string;
 
-  constructor(private http : HttpClient, private _groupInfoService : GroupServiceService) { }
+  constructor(private http : HttpClient, public groupService : GroupService) { }
 
   loader = new Loader({
     apiKey: GlobalConstants.myKey,
@@ -33,12 +33,12 @@ export class GroupRouterComponent implements OnInit {
       this.geocoder = new google.maps.Geocoder();
     });
 
-    this._groupInfoService.getGroup().then(data => {
-      this.groupInfo = data; 
-      let users = this.groupInfo.users;
+    this.groupService.getGroup().then(data => {
+      console.log(data);
+      let users = data.Employees;
       
-      let start = this.groupInfo.users[this.getDriver(this.groupInfo.schedule, this.groupInfo.users.length)].address;
-      let dest = this.groupInfo.destination;
+      let start = users[this.getDriver(data.CreatedAt, users.length)].HomeLocation;
+      let dest = data.Location;
       this.getMap(users, start, dest);
     });
     
@@ -53,12 +53,12 @@ export class GroupRouterComponent implements OnInit {
       this.geocoder = new google.maps.Geocoder();
     });
 
-    this._groupInfoService.getGroup().then(data => {
-      this.groupInfo = data; 
-      let users = this.groupInfo.users;
+    this.groupService.getGroup().then(data => {
+      console.log(data);
+      let users = this.groupInfo.Employees;
       
-      let start = this.groupInfo.users[this.getDriver(this.groupInfo.schedule, this.groupInfo.users.length)].address;
-      let dest = this.groupInfo.destination;
+      let start = users[this.getDriver(data.CreatedAt, users.length)].HomeLocation;
+      let dest = data.Location;
       this.getMap(users, start, dest);
     });
   }
@@ -92,8 +92,8 @@ export class GroupRouterComponent implements OnInit {
     let userEncList: string[] = [];
     const waypts: google.maps.DirectionsWaypoint[] = [];
     for (let i = 0; i < users.length; i++) {
-      if (users[i].address != ori) {
-        userEncList.push(encodeURIComponent(users[i].address));
+      if (users[i].HomeLocation != ori) {
+        userEncList.push(encodeURIComponent(users[i].HomeLocation));
       }
     }
     for (let i = 0; i < userEncList.length; i++) {
@@ -102,9 +102,7 @@ export class GroupRouterComponent implements OnInit {
         location: temp,
         stopover: true
       });
-    }
-    console.log("Waypoints size: " + waypts.length);
-    return waypts;
+    }    return waypts;
   }
 
   //Returns the driver for that day of the week depending on the start date of that group.

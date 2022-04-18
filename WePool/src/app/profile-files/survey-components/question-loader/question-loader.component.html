@@ -2,5 +2,5 @@
     <div *ngFor="let question of questions; let i = index;">
       <question-component (newItemEvent)="setResult($event, i)" [question]="question.question" [type]="question.type"></question-component>
     </div>
-    <button (click)="pushResults()">test</button>
+    <a mat-raised-button style="margin-top:10px; font-size: 16px;" color="primary" (click)="pushResults()" routerLink="/joinGroup">Submit</a>
   </ul>

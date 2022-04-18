@@ -1,6 +1,0 @@
-<ul>
-    <div *ngFor="let question of questions; let i = index;">
-      <question-component (newItemEvent)="setResult($event, i)" [question]="question.question" [type]="question.type"></question-component>
-    </div>
-    <a mat-raised-button color="primary" (click)="pushResults()" routerLink="/administration">Submit</a>
-  </ul>

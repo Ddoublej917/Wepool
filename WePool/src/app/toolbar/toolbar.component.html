@@ -1,17 +1,24 @@
 <mat-toolbar color="primary" class="navbar">
-  
-  
     <div>
       <span><a mat-fab routerLink="home">Wepool</a></span>
       <span><a mat-button routerLink="carpools">Carpools</a></span>
       <span><a mat-button routerLink="profile">Profile</a></span>
+      <span><a mat-button routerLink="joinGroup">Join Group</a></span>
       <span><a mat-button routerLink="moderation">Moderation</a></span>
-      <span><a mat-button routerLink="administration">Administration</a></span>
     </div>
-    <div>
-      <span>Login</span>
+    <div *ngIf="!userService.gettoken(); else loggedin">
+      <span>Login
       <a id="loginButton" loginButton mat-icon-button routerLink="login" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon>login</mat-icon>
       </a>
+    </span>
     </div>
+    <ng-template #loggedin>
+      <span id="user">Welcome  {{GetUsername}}</span>  
+      <span>Logout
+      <a id="logoutButton" loginButton mat-icon-button routerLink="login">
+        <mat-icon>logout</mat-icon>
+      </a>
+    </span>
+    </ng-template>
   </mat-toolbar>

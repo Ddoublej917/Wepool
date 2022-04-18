@@ -1,7 +1,7 @@
 <div class="grid-container">
     <h1 class="mat-h1">Moderation Dashboard</h1>
     <mat-grid-list cols="2" rowHeight="350px">
-      <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows" let i = index;>
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -16,7 +16,7 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
-            <div>
+            <div *ngIf="card.title == 'User Join Requests'">
                 <table mat-table [dataSource]="dataSource" >
 
                 <!--- Note that these columns can be defined in any order.
@@ -72,6 +72,146 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
             </div>
+            <div *ngIf="card.title == 'Company Join Requests'">
+              <table mat-table [dataSource]="dataSource" >
+
+              <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+            
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+            
+              <!-- Name Column -->
+              <ng-container matColumnDef="company">
+                <th mat-header-cell *matHeaderCellDef> Company </th>
+                <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+              </ng-container>
+            
+              <!-- Weight Column -->
+              <ng-container matColumnDef="driver">
+                <th mat-header-cell *matHeaderCellDef> Driver </th>
+                <td mat-cell *matCellDef="let element"> {{element.driver}} </td>
+              </ng-container>
+            
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="pas1">
+                <th mat-header-cell *matHeaderCellDef> Passenger 1 </th>
+                <td mat-cell *matCellDef="let element"> {{element.pas1}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="pas2">
+                  <th mat-header-cell *matHeaderCellDef> Passenger 2 </th>
+                  <td mat-cell *matCellDef="let element"> {{element.pas2}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+              <ng-container matColumnDef="pas3">
+                  <th mat-header-cell *matHeaderCellDef> New Passenger</th>
+                  <td mat-cell *matCellDef="let element"> {{element.pas3}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action1">
+                  <th mat-header-cell *matHeaderCellDef> Approve</th>
+                  <td mat-cell *matCellDef="let element"> <button md-raised-button >Approve</button>  </td> 
+              </ng-container> 
+
+              <ng-container matColumnDef="action2">
+                  <th mat-header-cell *matHeaderCellDef> Deny</th>
+                  <td mat-cell *matCellDef="let element"> <button md-raised-button >Deny</button>  </td>
+              </ng-container> 
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+          <div *ngIf="card.title == 'Carpool Groups'">
+            <table mat-table [dataSource]="dataSource3" >
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="company">
+              <th mat-header-cell *matHeaderCellDef> Company </th>
+              <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="driver">
+              <th mat-header-cell *matHeaderCellDef> Driver </th>
+              <td mat-cell *matCellDef="let element"> {{element.driver}} </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="pas1">
+              <th mat-header-cell *matHeaderCellDef> Passenger 1 </th>
+              <td mat-cell *matCellDef="let element"> {{element.pas1}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="pas2">
+                <th mat-header-cell *matHeaderCellDef> Passenger 2 </th>
+                <td mat-cell *matCellDef="let element"> {{element.pas2}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+            <ng-container matColumnDef="pas3">
+                <th mat-header-cell *matHeaderCellDef> New Passenger</th>
+                <td mat-cell *matCellDef="let element"> {{element.pas3}} </td>
+              </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="groupColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: groupColumns;"></tr>
+          </table>
+        </div>
+        <div *ngIf="card.title == 'Issues'">
+          <table mat-table [dataSource]="dataSource2" >
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+        
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+          </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="company">
+            <th mat-header-cell *matHeaderCellDef> Company </th>
+            <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+          </ng-container>
+        
+          <!-- Weight Column -->
+          <ng-container matColumnDef="reporter">
+            <th mat-header-cell *matHeaderCellDef> Reported By: </th>
+            <td mat-cell *matCellDef="let element"> {{element.reporter}} </td>
+          </ng-container>
+        
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="message">
+            <th mat-header-cell *matHeaderCellDef> Message </th>
+            <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+          </ng-container>
+
+            <ng-container matColumnDef="action1">
+              <th mat-header-cell *matHeaderCellDef> Acknowledge</th>
+              <td mat-cell *matCellDef="let element"> <button md-raised-button >Acknowledge</button>  </td> 
+          </ng-container> 
+          <tr mat-header-row *matHeaderRowDef="issueColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: issueColumns;"></tr>
+        </table>
+      </div>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>

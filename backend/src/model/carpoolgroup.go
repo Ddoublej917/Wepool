@@ -1,12 +1,14 @@
 package model
 
-import "github.com/jinzhu/gorm"
-
+// Changed to ID from gorm.model in order to use custom type for createdAt
 type CarpoolGroup struct {
-	gorm.Model
+	ID        uint `json:"id" gorm:"primary_key"`
+	CreatedAt int64 `json:"createdAt" gorm:"autoCreateTime:milli"`	
 	Employees     []Employee `json:"employees"`
 	CompanyID     uint       `json:"companyID"`
 	Company       Company    `json:"company"`
-	LocationID    Location   `json:"locationID"`
-	PreferencesID uint       `json:"preferencesID"`
+	LocationID uint `json:"locationID"`	
+	Location    Location   `json:"location"`
+	PreferencesID uint       `json:"preferencesID"`	
+	CarCapacity  uint8 `json:"carCapacity"`		
 }
