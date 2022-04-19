@@ -16,7 +16,7 @@
 ## _Frontend Team Members_
 - Renzo Pretto
 - Daniel Johnson
-## _Frontend Team Members_
+## _Backend Team Members_
 - Ganesh Sundar
 - Chris Phang
 Carpooling App for Software Engineering project
