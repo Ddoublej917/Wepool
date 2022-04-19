@@ -12,6 +12,7 @@
 ## _Project Board_
 - https://github.com/Ddoublej917/Wepool/projects/6
 ## _Sprint 4 Deliverables_
+- https://github.com/Ddoublej917/Wepool/blob/main/Tasks_Accomplished_in_Sprint_4_md.md
 ## _Frontend Team Members_
 - Renzo Pretto
 - Daniel Johnson
