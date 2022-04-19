@@ -19,5 +19,5 @@
 ## _Backend Team Members_
 - Ganesh Sundar
 - Chris Phang
-Carpooling App for Software Engineering project
+
 
