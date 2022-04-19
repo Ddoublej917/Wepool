@@ -9,7 +9,7 @@ import { ProfileComponent } from './profile-files/profile.component'; //Will cha
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { ModerationComponent } from './moderation-files';
+import { ModerationComponent, AddGroupComponent } from './moderation-files';
 import { SurveyComponent, LocationAutocompleteComponent, QuestionComponent, QuestionLoaderComponent } from './profile-files';
 import { MapPOCComponent, CarpoolsComponent, GroupInfoComponent } from './carpool-files';
 import { GroupViewComponent, JoinGroupComponent, UserReportComponent } from './join-group-files';
@@ -47,7 +47,8 @@ import { ModAuthguardService } from './services/Authguard-service/mod_authguard.
     ModerationComponent,
     ModComponent,
     UserReportComponent,
-    JoinGroupComponent
+    JoinGroupComponent,
+    AddGroupComponent
   ],
   imports: [
     BrowserAnimationsModule,

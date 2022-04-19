@@ -28,7 +28,9 @@ export class GroupService {
 
   //Gets group based off user
   async getGroup() {
+    //Load user
     let user = localStorage.getItem("email");
+    //Returns group using work email as ID
     return this.http.post("http://localhost:8000/employee/carpool-group", {
       "WorkEmail": user
     }).toPromise()
@@ -42,14 +44,20 @@ export class GroupService {
   
   //Gets group preferences from user
   async getGroupPreferences(group : string) {
+    //Loads in group
     let prefs = await this.getGroup();
+    //Returns preferences from group
     return prefs.Preferences;
   } 
   
   //Get groups from company
   async getGroups() {
+    //Load user
     let user = await this.userService.getUser();
+    //Load company from user
     let company = user.Company.Name;
+    console.log("Getting groups from " + company);
+    //Get list of groups pertaining to company current user is in
     return await this.http.post( "http://localhost:8000/employee/carpool-group/get-carpool-groups-by-company-name", {
       "Name": company
     }).toPromise()
@@ -63,13 +71,20 @@ export class GroupService {
 
   //Sends user report to company
   sendReport(offEmail: string, report : string) {
-    console.log(report + " " + offEmail);
+    //Load user
     let user = localStorage.getItem("email");
+    console.log("Petitioner email: " + user + "/nOffender email: " + offEmail + "/nReport: " + report);
     this.http.post("http://localhost:8000/employee/report", {
       "PetitionerEmail": user,
       "OffenderEmail": offEmail,
       "IssueDescription": report
     });
+  }
+
+  //Adds group using user ID
+  addGroup() {
+    let user = localStorage.getItem("email");
+
   }
 }
 

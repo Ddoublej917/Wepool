@@ -13,10 +13,11 @@ export class UserService {
 
   //Pass in user, build url to get profile info
   async getUser() {
+    //Loads employee profile using signed in email
     return this.http.post("http://localhost:8000/employee/profile",
     {
       "workEmail": localStorage.getItem("email")
-    }).toPromise()
+    }).toPromise() //Converts to readable JSON
     .then(
       res => { // Success
         console.log(res);
@@ -27,10 +28,13 @@ export class UserService {
 
   //Compares preferences between user and group and returns the amount of matches
   async comparePrefs(group: any): Promise<number>{
+    //Load user and store preferences
     let userData = await this.getUser();
     userData = userData.Preferences;
+    //Load group preferences
     let groupData = group.Preferences;
     let count = 3;
+    //Compares matching info from preferences
     if (Math.abs(userData[5]-groupData[5]) <= 1) {
       count++;
     }
@@ -46,14 +50,16 @@ export class UserService {
   }
 
   updateUserProfile(userInfo) {
-    let workEmail = "renzo@ufl.edu"
+    //Loads work email of signed in user
+    let workEmail = localStorage.getItem("email");
+    //Updates employee profile using form
     this.http.put("http://localhost:8000/employee/preferences", {
       "workEmail": workEmail,
       "preferences": userInfo.preferences,
       "homeLocation": userInfo.homeLocation,
       "profile": userInfo.profile,
       "workLocation": userInfo.workLocation
-    })
+    });
   }
 
   //Converts phone number to formatted version
