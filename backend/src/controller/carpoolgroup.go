@@ -2,7 +2,6 @@ package controller
 
 import (
 	"net/http"
-
 	"github.com/gin-gonic/gin"
 	"wepool.com/src/model"
 )
@@ -57,7 +56,7 @@ func AddEmployeeToCarpoolGroup(c *gin.Context) {
 		return
 	}
 	var carpoolGroup model.CarpoolGroup
-	result = model.DB.Where("id = ?", input.WorkEmail).First(&carpoolGroup)
+	result = model.DB.Where("id = ?", input.CarpoolGroupID).First(&carpoolGroup)
 	if result.RecordNotFound() {
 		c.JSON(http.StatusNotFound, "")
 		return

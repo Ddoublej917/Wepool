@@ -28,6 +28,7 @@ func main() {
 	router.POST("/add-employee-to-carpool-group", controller.AddEmployeeToCarpoolGroup)
 	router.POST("/get-carpool-groups-by-company-name", controller.GetCarpoolGroupsByCompanyName)
 	router.POST("/employee/carpool-group", controller.GetEmployeeCarpoolGroupInfo)
+	router.POST("/employee/carpoolgroup", controller.CreateCarpoolGroup)
 	router.POST("/employee/profile", controller.GetEmployeeProfile)
 	router.PUT("/employee/preferences", controller.UpdateEmployeePreferences)
 	router.POST("/employee/report", controller.CreateEmployeeReport)
