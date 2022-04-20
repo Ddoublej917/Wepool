@@ -25,6 +25,13 @@ const CARPOOL_DATA: Carpool[] = [
   {position: 4, company: 'University of Florida', driver: 'Theodore Hart', pas1: 'Sergio Young', pas2: 'Jeannie Mendez', pas3: 'Mae Vargas'},
 ];
 
+const CARPOOL_DATA2: Carpool[] = [
+  {position: 1, company: 'University of Florida', driver: 'Daniel Johnson', pas1: 'Renzo Pretto', pas2: 'Ganesh Sundar', pas3: 'Chris Phang'},
+  {position: 2, company: 'University of Florida', driver: 'Lorena Anderson', pas1: 'Amanda Hicks', pas2: 'Lindsay Higgins', pas3: 'Vivian Sanchez'},
+  {position: 3, company: 'University of Florida', driver: 'Wendell Rodgers', pas1: 'Conrad Garza', pas2: 'Cody Santos', pas3: 'Bradford Delgado'},
+  {position: 4, company: 'University of Florida', driver: 'Theodore Hart', pas1: 'Sergio Young', pas2: 'Jeannie Mendez', pas3: 'Mae Vargas'},
+];
+
 const GROUP_DATA: Carpool[] = [
   {position: 1, company: 'University of Florida', driver: 'Daniel Johnson', pas1: 'Renzo Pretto', pas2: 'Ganesh Sundar', pas3: 'Chris Phang'},
   {position: 2, company: 'University of Florida', driver: 'Lorena Anderson', pas1: 'Amanda Hicks', pas2: 'Lindsay Higgins', pas3: 'Vivian Sanchez'},
@@ -52,6 +59,21 @@ export class ModerationComponent {
   dataSource = CARPOOL_DATA;
   dataSource2 = ISSUE_DATA;
   dataSource3 = GROUP_DATA;
+  dataSource4 = CARPOOL_DATA2;
+
+
+  deleteRow= function (position: number) {
+    this.dataSource2 = this.dataSource2.filter((u) => u.position !== position);
+};
+
+deleteRow2= function (position: number) {
+  this.dataSource = this.dataSource.filter((u) => u.position !== position);
+};
+
+deleteRow3= function (position: number) {
+  this.dataSource4 = this.dataSource4.filter((u) => u.position !== position);
+};
+
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
