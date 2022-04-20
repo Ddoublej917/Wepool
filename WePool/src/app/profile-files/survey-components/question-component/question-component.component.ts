@@ -15,7 +15,7 @@ export class QuestionComponent implements OnInit {
   @Output() newItemEvent = new EventEmitter<string>();
 
   companys = [
-    {value: 'UF'},
+    {value: 'Google'},
     {value: 'UFPD'},
     {value: 'McDonalds'},
   ];

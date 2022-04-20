@@ -1,5 +1,7 @@
+<header>
+
 <div class="grid-container">
-    <h1 class="mat-h1">Moderation Dashboard</h1>
+  <h1 class="mat-h1"> <span>Moderation Dashboard</span></h1>
     <mat-grid-list cols="2" rowHeight="350px">
       <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows" let i = index;>
         <mat-card class="dashboard-card">
@@ -59,13 +61,13 @@
                   </ng-container>
 
                   <ng-container matColumnDef="action1">
-                    <th mat-header-cell *matHeaderCellDef> Approve</th>
-                    <td mat-cell *matCellDef="let element"> <button md-raised-button >Approve</button>  </td> 
+                    <th mat-header-cell *matHeaderCellDef> Approval</th>
+                    <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow2(element.position)" >Approve</button>  </td> 
                 </ng-container> 
 
                 <ng-container matColumnDef="action2">
-                    <th mat-header-cell *matHeaderCellDef> Deny</th>
-                    <td mat-cell *matCellDef="let element"> <button md-raised-button >Deny</button>  </td>
+                    <th mat-header-cell *matHeaderCellDef> Denied</th>
+                    <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow2(element.position)" >Deny</button>  </td>
                 </ng-container> 
               
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -73,7 +75,7 @@
               </table>
             </div>
             <div *ngIf="card.title == 'Company Join Requests'">
-              <table mat-table [dataSource]="dataSource" >
+              <table mat-table [dataSource]="dataSource4" >
 
               <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
@@ -115,13 +117,13 @@
                 </ng-container>
 
                 <ng-container matColumnDef="action1">
-                  <th mat-header-cell *matHeaderCellDef> Approve</th>
-                  <td mat-cell *matCellDef="let element"> <button md-raised-button >Approve</button>  </td> 
+                  <th mat-header-cell *matHeaderCellDef> Approval</th>
+                  <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow3(element.position)" >Approve</button>  </td> 
               </ng-container> 
 
               <ng-container matColumnDef="action2">
-                  <th mat-header-cell *matHeaderCellDef> Deny</th>
-                  <td mat-cell *matCellDef="let element"> <button md-raised-button >Deny</button>  </td>
+                  <th mat-header-cell *matHeaderCellDef> Denied</th>
+                  <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow3(element.position)" >Deny</button>  </td>
               </ng-container> 
             
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -205,8 +207,8 @@
           </ng-container>
 
             <ng-container matColumnDef="action1">
-              <th mat-header-cell *matHeaderCellDef> Acknowledge</th>
-              <td mat-cell *matCellDef="let element"> <button md-raised-button >Acknowledge</button>  </td> 
+              <th mat-header-cell *matHeaderCellDef> Resolve</th>
+              <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow(element.position)">Acknowledge</button>  </td> 
           </ng-container> 
           <tr mat-header-row *matHeaderRowDef="issueColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: issueColumns;"></tr>
@@ -217,3 +219,4 @@
       </mat-grid-tile>
     </mat-grid-list>
   </div>
+</header>

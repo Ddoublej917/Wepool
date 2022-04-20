@@ -30,6 +30,7 @@ export class GroupViewComponent implements OnInit {
             return -1;
         return 0;
     });
+    console.log("Matches: " + this.matches);
   }
 
   //Add user to group

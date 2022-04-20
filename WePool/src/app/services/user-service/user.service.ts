@@ -28,11 +28,12 @@ export class UserService {
   async comparePrefs(group: any): Promise<number>{
     //Load user and store preferences
     let userData = await this.getUser();
-    userData = userData.Preferences;
+    //userData = userData.preferences;
     //Load group preferences
     let groupData = group.Preferences;
     let count = 3;
     //Compares matching info from preferences
+    console.log("User data: " + userData.preferencesId)
     if (Math.abs(userData.talkativeness-groupData.talkativeness) <= 1) {
       count++;
     }
@@ -52,7 +53,6 @@ export class UserService {
     let workEmail = localStorage.getItem("email");
     console.log("Updating " + workEmail + " with new preferences.")
     //Updates employee profile using form
-    console.log("Updating user preferences with: " + userInfo);
     await this.http.put("http://localhost:8000/employee/preferences", {
       "workEmail": workEmail,
       "preferences": userInfo.preferences,

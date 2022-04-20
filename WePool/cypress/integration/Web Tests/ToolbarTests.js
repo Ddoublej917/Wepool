@@ -1,26 +1,40 @@
 describe('Test toolbar links.', () => {
     it('Directs to home page.', () => {
-        cy.visit('http://localhost:4200/carpools')
+        cy.visit('http://localhost:4200')
         cy.contains('Wepool').click()
         cy.url().should('include', '/home')
     })
     it('Directs to carpools page.', () => {
+        cy.visit('http://localhost:4200/login')
+        cy.contains('Login').click()
+        cy.get('#mat-input-0').type('renzo@ufl.edu')
+        cy.get('#mat-input-1').type('123')
+        cy.contains('Sign In').click()
+        cy.saveLocalStorage()
+        cy.visit('http://localhost:4200/carpools')
         cy.contains('Carpools').click()
         cy.url().should('include', '/carpools')
     })
     it('Directs to profile page.', () => {
+        cy.restoreLocalStorage()
+        cy.visit('http://localhost:4200')
         cy.contains('Profile').click()
         cy.url().should('include', '/profile')
     })
     it('Directs to moderation page.', () => {
+        cy.restoreLocalStorage()
+        cy.visit('http://localhost:4200')
         cy.contains('Moderation').click()
         cy.url().should('include', '/moderation')
     })
-    it('Directs to Administration page.', () => {
-        cy.contains('Administration').click()
-        cy.url().should('include', '/administration')
-    })
     it('Directs to Login page.', () => {
+        cy.visit('http://localhost:4200')
+        cy.get('.mat-icon').click()
+        cy.url().should('include', '/login')
+    })
+    it('Logs the user out.', () => {
+        cy.restoreLocalStorage()
+        cy.visit('http://localhost:4200')
         cy.get('.mat-icon').click()
         cy.url().should('include', '/login')
     })

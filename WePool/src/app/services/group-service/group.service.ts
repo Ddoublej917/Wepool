@@ -84,7 +84,10 @@ export class GroupService {
   //Adds group using user ID
   addGroup() {
     let user = localStorage.getItem("email");
-
+    this.http.post("http://localhost:8000/employee/carpoolgroup", {
+      "workEmail": user,
+      "carCapacity": 4
+    })
   }
 }
 

@@ -63,6 +63,11 @@ type Report struct {
 	IssueDescription     string     `json:"issueDescription"`
 }
 
+type EmployeeInput struct {
+	WorkEmail string `json:"workEmail" binding:"required"`
+	CarCapacity  uint8 `json:"carCapacity"`
+}
+
 func GetEmployeeProfile(c *gin.Context) {
 	var employee model.Employee
 	var EmployeeInput CarpoolGroupEmployees
@@ -71,7 +76,7 @@ func GetEmployeeProfile(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}	
-	result:= model.DB.Preload("Profile").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)	
+	result:= model.DB.Preload("Profile").Preload("Preferences").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)	
 	if result.Error != nil {	
 		fmt.Println("Error", result.Error)
 		c.JSON(http.StatusNotFound, result.Error)
@@ -114,7 +119,7 @@ func GetEmployeeCarpoolGroupInfo(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}		
-	result:= model.DB.Preload("CarpoolGroup").Preload("CarpoolGroup.Employees").Preload("CarpoolGroup.Location").Preload("CarpoolGroup.Employees.Homelocation").Preload("CarpoolGroup.Employees.Profile").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)	
+	result:= model.DB.Preload("CarpoolGroup").Preload("CarpoolGroup.Employees").Preload("CarpoolGroup.Location").Preload("CarpoolGroup.Employees.Homelocation").Preload("CarpoolGroup.Employees.Profile").Preload("CarpoolGroup.Employees.Company").Preload("CarpoolGroup.Preferences").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)	
 	if result.Error != nil {	
 		fmt.Println("Error", result.Error)
 		c.JSON(http.StatusNotFound, result.Error)
@@ -122,6 +127,32 @@ func GetEmployeeCarpoolGroupInfo(c *gin.Context) {
 	}
 	
 	c.JSON(200, employee)
+	return
+}
+
+func CreateCarpoolGroup(c *gin.Context) {
+	var employee model.Employee
+	var EmployeeInput EmployeeInput
+
+	if err := c.ShouldBindJSON(&EmployeeInput); err != nil {
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}		
+	result:= model.DB.Preload("Preferences").Preload("CarpoolGroup.Location").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)	
+	if result.Error != nil {	
+		c.JSON(http.StatusNotFound, result.Error)
+		return
+	}
+	
+	carpoolGroup := model.CarpoolGroup{
+		CompanyID: employee.CompanyID,
+		PreferencesID: employee.PreferencesID,
+		LocationID: employee.CarpoolGroup.LocationID,
+		CarCapacity: EmployeeInput.CarCapacity,
+	}
+	model.DB.Create(&carpoolGroup);
+
+	c.JSON(200, carpoolGroup)
 	return
 }
 
@@ -144,6 +175,7 @@ func CreateEmployeeReport(c *gin.Context) {
 		OffenderEmail:    ReportInput.OffenderEmail,
 		IssueDescription: ReportInput.IssueDescription,
 		EmployeeID:       Employee.ID,
+		CompanyID: Employee.CompanyID,
 	}
 	model.DB.Create(&report);
 
