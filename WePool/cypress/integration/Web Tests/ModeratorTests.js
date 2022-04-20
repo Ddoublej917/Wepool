@@ -1,11 +1,18 @@
 describe('Test group info component', () => {
     it('Opens first rider\'s tab', () => {
-      cy.visit('http://localhost:4200/carpools')
+      cy.visit('http://localhost:4200/login')
+        cy.contains('Login').click()
+        cy.get('#mat-input-0').type('renzo@ufl.edu')
+        cy.get('#mat-input-1').type('123')
+        cy.contains('Sign In').click()
+        cy.saveLocalStorage()
+      cy.visit('http://localhost:4200/moderation')
       cy.contains('Approve:').click()
       cy.contains('Name:')
       cy.wait(100)
     })
     it('Opens second rider\'s tab', () => {
+      cy.restoreLocalStorage()
       cy.contains('Deny:').click()
       cy.contains('Name:')
       cy.wait(100)
