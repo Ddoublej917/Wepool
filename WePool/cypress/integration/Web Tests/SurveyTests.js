@@ -2,8 +2,8 @@ describe('Test each question on page.', () => {
     it('Fill in private information.', () => {
       cy.visit('http://localhost:4200/login')
         cy.contains('Login').click()
-        cy.get('#mat-input-0').type('Danny123')
-        cy.get('#mat-input-1').type('Password456')
+        cy.get('#mat-input-0').type('renzo@ufl.edu')
+        cy.get('#mat-input-1').type('123')
         cy.contains('Sign In').click()
         cy.saveLocalStorage()
       cy.visit('http://localhost:4200/profile')
