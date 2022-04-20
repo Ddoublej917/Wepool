@@ -68,6 +68,11 @@ type EmployeeInput struct {
 	CarCapacity  uint8 `json:"carCapacity"`
 }
 
+/*
+POST /employee/profile
+Get an employee's profile
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func GetEmployeeProfile(c *gin.Context) {
 	var employee model.Employee
 	var EmployeeInput CarpoolGroupEmployees
@@ -87,6 +92,11 @@ func GetEmployeeProfile(c *gin.Context) {
 	return
 }
 
+/*
+PUT /employee/preferences
+Update an employee's preferences
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func UpdateEmployeePreferences(c *gin.Context) {
 	var employee model.Employee
 	var EmployeePreferences EmployeePreferences
@@ -111,6 +121,11 @@ func UpdateEmployeePreferences(c *gin.Context) {
 	return
 }
 
+/*
+POST /employee/carpool-group
+Get an employee's carpool group info
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func GetEmployeeCarpoolGroupInfo(c *gin.Context) {
 	var employee model.Employee
 	var EmployeeInput CarpoolGroupEmployees
@@ -130,6 +145,11 @@ func GetEmployeeCarpoolGroupInfo(c *gin.Context) {
 	return
 }
 
+/*
+POST /employee/carpoolgroup
+Create a new carpool group 
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func CreateCarpoolGroup(c *gin.Context) {
 	var employee model.Employee
 	var EmployeeInput EmployeeInput
@@ -156,6 +176,11 @@ func CreateCarpoolGroup(c *gin.Context) {
 	return
 }
 
+/*
+POST /employee/report
+Create a new report/issue filing a complaint against an employee 
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func CreateEmployeeReport(c *gin.Context) {
 	var ReportInput Report
 	var Employee model.Employee
