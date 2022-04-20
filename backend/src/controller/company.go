@@ -37,6 +37,11 @@ func CreateCompany(c *gin.Context) {
 	c.JSON(http.StatusOK, company)
 }
 
+/*
+POST /company/report
+Gets all the reports/issues filed at a company for use by moderators
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func GetCompanyReports(c *gin.Context) {
 	var company model.Company
 	var CompanyInput CompanyInput
