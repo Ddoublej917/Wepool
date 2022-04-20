@@ -20,8 +20,18 @@
     top: 5px;
     right: 10px;
   }
+
+  h1 span { 
+    background-color: rgb(255, 255, 255); 
+}
   
 
   table {
     width: 100%;
+  }
+
+  header {
+    background: url("/assets/wepoolmap.png") center bottom;
+    height: 130vh;
+    position: relative;
   }

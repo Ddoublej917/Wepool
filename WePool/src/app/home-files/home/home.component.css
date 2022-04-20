@@ -25,20 +25,22 @@ span {
   
  /* Solid border */
 hr.solid {
-    border-top: 10px solid #bbb;
+    border-top: 0px solid rgb(255, 255, 255);
   }
 
    /* Background stuff*/
    header{
-       background: url("/assets/wepool 3.jpg");
-       height: 100vh;
-       -webkit-background-size:cover;
-       background-size: cover;
-       background-position:center center;
-       position: relative;
+    background: url("/assets/wepool 3.jpg") center top repeat, url("/assets/wepoolmap.jpg") center bottom repeat;
+    height: 100vh;
+    -webkit-background-size:cover;
+    background-size: cover;
+    background-position:center center;
+    position: relative;
 
-   }
+}
 
    body {
-    background-color: rgb(221, 237, 243);
+    background: url("/assets/wepoolmap.png") center bottom;
+    height: 80vh;
+    position: relative;
   }
