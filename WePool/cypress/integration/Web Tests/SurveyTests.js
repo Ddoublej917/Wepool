@@ -1,15 +1,27 @@
 describe('Test each question on page.', () => {
+    it('Logs in', () => {
+      cy.visit('http://localhost:4200/login')
+      cy.contains('Login').click()
+      cy.get('#mat-input-0').type('Danny123')
+      cy.get('#mat-input-1').type('Password456')
+      cy.get('.mat-tab-body-content > .mat-focus-indicator > .mat-button-wrapper').click()
+    })
     it('Fill in private information.', () => {
+      cy.contains('Login').click()
+      cy.get('#mat-input-0').type('Danny123')
+      cy.get('#mat-input-1').type('Password456')
+      cy.get('.mat-tab-body-content > .mat-focus-indicator > .mat-button-wrapper').click()
       cy.visit('http://localhost:4200/profile')
       cy.get('#mat-input-0').type('Renzo Pretto')
+      cy.get('#mat-input-1').type('Male')
       cy.get('#search').type('311 Southwest 13th Street, Gainesville, FL, USA')
-      cy.get('.company > .mat-form-field > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix').type('Stadium Road')
+      cy.get('.company > .mat-form-field > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix').click()
       cy.get('#mat-option-0 > .mat-option-text').click()
     })
     it('Fill in preferences.', () => {
-        cy.get(':nth-child(6) > question-component > #body > .type > .slider > .mat-slider').type('{rightarrow}{leftarrow}')
-        cy.get(':nth-child(7) > question-component > #body > .type > .slider > .mat-slider').type('{rightarrow}{leftarrow}{leftarrow}')
-        cy.get(':nth-child(8) > question-component > #body > .type > .slider > .mat-slider').type('{rightarrow}{rightarrow}')
+        cy.get(':nth-child(7) > question-component > #body > .type > .slider > .mat-slider > .mat-slider-wrapper > .mat-slider-thumb-container > .mat-slider-thumb').focus().type('{rightarrow}{leftarrow}')
+        cy.get(':nth-child(8) > question-component > #body > .type > .slider > .mat-slider > .mat-slider-wrapper > .mat-slider-thumb-container > .mat-slider-thumb').focus().type('{rightarrow}{leftarrow}{leftarrow}')
+        cy.get(':nth-child(9) > question-component > #body > .type > .slider > .mat-slider > .mat-slider-wrapper > .mat-slider-thumb-container > .mat-slider-thumb').focus().type('{rightarrow}{rightarrow}')
     })
     it('Fill in must haves.', () => {
         cy.get('#mat-slide-toggle-1 > .mat-slide-toggle-label > .mat-slide-toggle-bar > .mat-slide-toggle-thumb-container > .mat-slide-toggle-thumb').click()

@@ -55,11 +55,11 @@ export class GroupService {
     //Load user
     let user = await this.userService.getUser();
     //Load company from user
-    let company = user.Company.Name;
+    let company = user.company.name;
     console.log("Getting groups from " + company);
     //Get list of groups pertaining to company current user is in
-    return await this.http.post( "http://localhost:8000/employee/carpool-group/get-carpool-groups-by-company-name", {
-      "Name": company
+    return await this.http.post( "http://localhost:8000/get-carpool-groups-by-company-name", {
+      "Name": "Google"
     }).toPromise()
     .then(
       res => { // Success

@@ -11,7 +11,9 @@ export class SurveyComponent implements OnInit {
 
   constructor(public userService: UserService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    let user = await this.userService.getUser()
+    console.log(user);
   }
 
   //Questions that will be used for now
@@ -33,27 +35,29 @@ export class SurveyComponent implements OnInit {
 
   }
 
+  //Updates user preferences
   async addItem(newItem: string[]) {
     await this.userService.updateUserProfile(this.getProfile(newItem));
   }
 
+  //Creates object with preferences and profile info
   getProfile(newPrefs) {
     let preferences = {
-      "Talkativeness": 0,
-      "Music": 0,
-      "Temperature": 0,
-      "Mask": false,
-      "Food": false,
-      "Smoking": false,
-      "Gender": "male"
+      "talkativeness": 0,
+      "music": 0,
+      "temperature": 0,
+      "mask": false,
+      "food": false,
+      "smoking": false,
+      "gender": "male"
     }
-    preferences.Talkativeness = parseInt(newPrefs[6]);
-    preferences.Temperature = parseInt(newPrefs[7]);
-    preferences.Talkativeness = parseInt(newPrefs[8]);
-    preferences.Mask = newPrefs[10];
-    preferences.Food = newPrefs[11];
-    preferences.Smoking = newPrefs[12];
-    preferences.Gender = newPrefs[2];
+    preferences.talkativeness = parseInt(newPrefs[6]);
+    preferences.temperature = parseInt(newPrefs[7]);
+    preferences.music = parseInt(newPrefs[8]);
+    preferences.mask = newPrefs[10];
+    preferences.food = newPrefs[11];
+    preferences.smoking = newPrefs[12];
+    preferences.gender = newPrefs[2];
     let name = newPrefs[1];
     let split = name.split(" ");
     let profile = {

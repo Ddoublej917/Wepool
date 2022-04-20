@@ -34,7 +34,7 @@ export class GroupRouterComponent implements OnInit {
     });
 
     this.groupService.getGroup().then(data => {
-      console.log(data);
+      console.log("Group loaded: " + data);
       let users = data.Employees;
       
       let start = users[this.getDriver(data.CreatedAt, users.length)].HomeLocation;

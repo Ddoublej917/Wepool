@@ -13,6 +13,7 @@ export class UserReportComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //Sends report to company
   sendReport(offEmail: string, report: string) {
     this.userService.sendReport(offEmail, report);
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-join-group',
@@ -9,14 +10,16 @@ export class JoinGroupComponent implements OnInit {
 
   userType : any;
 
-  constructor() { }
+  constructor(public userService: UserService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     /*Initialize user type on initialization of page. Load in potential groups on user, "Please sign in!" on not signed in, 
     and "Group Selected!" on group already selected.*/
-    if (localStorage.getItem("email") == "") {
-      this.userType = ""
-    } 
-    this.userType = "groupSelected";
+    //Load user
+    if (this.userService.isInGroup()) {
+      this.userType = "signedIn";
+    } else {
+      this.userType = "groupSelected";
+    }
   }
 }
