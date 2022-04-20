@@ -1,5 +1,5 @@
 describe('Test group info component', () => {
-    it('Opens first rider\'s tab', () => {
+    it('Open moderation page', () => {
       cy.visit('http://localhost:4200/login')
         cy.contains('Login').click()
         cy.get('#mat-input-0').type('renzo@ufl.edu')
@@ -7,35 +7,38 @@ describe('Test group info component', () => {
         cy.contains('Sign In').click()
         cy.saveLocalStorage()
       cy.visit('http://localhost:4200/moderation')
-      cy.contains('Approve:').click()
-      cy.contains('Name:')
-      cy.wait(100)
     })
-    it('Opens second rider\'s tab', () => {
+    it('Deny Request', () => {
       cy.restoreLocalStorage()
-      cy.contains('Deny:').click()
-      cy.contains('Name:')
+      cy.contains('Deny').click()
+      cy.wait(100)
+      cy.contains('Deny').click()
+      cy.wait(100)
+      cy.contains('Deny').click()
+      cy.wait(100)
+      cy.contains('Deny').click()
       cy.wait(100)
     })
-    it('Opens third rider\'s tab', () => {
-      cy.contains('Rider 3:').click()
-      cy.contains('Name:')
+    it('Approve Request', () => {
+      cy.restoreLocalStorage()
+      cy.contains('Approve').click()
+      cy.wait(100)
+      cy.contains('Approve').click()
+      cy.wait(100)
+      cy.contains('Approve').click()
+      cy.wait(100)
+      cy.contains('Approve').click()
       cy.wait(100)
     })
-    it('Opens fourth rider\'s tab', () => {
-      cy.contains('Rider 4:').click()
-      cy.contains('Name:')
+    it('Acknowledge Issue', () => {
+      cy.restoreLocalStorage()
+      cy.contains('Acknowledge').click()
       cy.wait(100)
-    })
-  })
-  
-  describe('Test directions scrolling.', () => {
-    it('Scrolls halfway through the directions.', () => {
-      cy.get('span#sidebar').scrollTo('center')
+      cy.contains('Acknowledge').click()
       cy.wait(100)
-    })
-    it('Scrolls to the end of the directions.', () => {
-      cy.get('span#sidebar').scrollTo('bottom')
+      cy.contains('Acknowledge').click()
+      cy.wait(100)
+      cy.contains('Acknowledge').click()
       cy.wait(100)
     })
   })

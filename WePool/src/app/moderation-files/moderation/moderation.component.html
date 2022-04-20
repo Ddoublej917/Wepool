@@ -61,12 +61,12 @@
                   </ng-container>
 
                   <ng-container matColumnDef="action1">
-                    <th mat-header-cell *matHeaderCellDef> Approve</th>
+                    <th mat-header-cell *matHeaderCellDef> Approval</th>
                     <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow2(element.position)" >Approve</button>  </td> 
                 </ng-container> 
 
                 <ng-container matColumnDef="action2">
-                    <th mat-header-cell *matHeaderCellDef> Deny</th>
+                    <th mat-header-cell *matHeaderCellDef> Denied</th>
                     <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow2(element.position)" >Deny</button>  </td>
                 </ng-container> 
               
@@ -117,12 +117,12 @@
                 </ng-container>
 
                 <ng-container matColumnDef="action1">
-                  <th mat-header-cell *matHeaderCellDef> Approve</th>
+                  <th mat-header-cell *matHeaderCellDef> Approval</th>
                   <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow3(element.position)" >Approve</button>  </td> 
               </ng-container> 
 
               <ng-container matColumnDef="action2">
-                  <th mat-header-cell *matHeaderCellDef> Deny</th>
+                  <th mat-header-cell *matHeaderCellDef> Denied</th>
                   <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow3(element.position)" >Deny</button>  </td>
               </ng-container> 
             
@@ -207,7 +207,7 @@
           </ng-container>
 
             <ng-container matColumnDef="action1">
-              <th mat-header-cell *matHeaderCellDef> Acknowledge</th>
+              <th mat-header-cell *matHeaderCellDef> Resolve</th>
               <td mat-cell *matCellDef="let element"> <button md-raised-button (click)="deleteRow(element.position)">Acknowledge</button>  </td> 
           </ng-container> 
           <tr mat-header-row *matHeaderRowDef="issueColumns"></tr>
