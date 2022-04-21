@@ -24,6 +24,6 @@ https://user-images.githubusercontent.com/89986686/164359890-28cfa9d9-549b-4b67-
 - Ganesh Sundar
 - Chris Phang
 ## _Deployed App Link_
-- link here
+- https://app.netlify.com/sites/cheery-panda-2dcf2c/deploys/6260d07abae9027698aadc4d
 
 
