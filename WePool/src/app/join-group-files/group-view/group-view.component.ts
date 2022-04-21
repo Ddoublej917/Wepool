@@ -35,6 +35,7 @@ export class GroupViewComponent implements OnInit {
 
   //Add user to group
   joinGroup(id : any) {
+    alert("Group joined!");
     this.groupService.joinGroup(id, this.groups);
   }
 
