@@ -16,7 +16,7 @@ export class JoinGroupComponent implements OnInit {
     /*Initialize user type on initialization of page. Load in potential groups on user, "Please sign in!" on not signed in, 
     and "Group Selected!" on group already selected.*/
     //Load user
-    if (localStorage.getItem("email") == "renzo@gmail.com") {
+    if (this.userService.isInGroup()) {
       this.userType = "signedIn";
     } else {
       this.userType = "groupSelected";

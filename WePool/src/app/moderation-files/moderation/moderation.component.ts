@@ -46,6 +46,7 @@ const ISSUE_DATA: Issue[] = [
   {position: 4, company: 'University of Florida', reporter: 'Daniel Johnson', message: 'I want to switch groups'},
 ];
 
+
 @Component({
   selector: 'app-mod',
   templateUrl: './moderation.component.html',

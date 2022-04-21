@@ -14,9 +14,8 @@ export class UserReportComponent implements OnInit {
   }
 
   //Sends report to company
-  async sendReport(offEmail: string, report: string) {
-    alert("Report sent!");
-    await this.userService.sendReport(offEmail, report);
+  sendReport(offEmail: string, report: string) {
+    this.userService.sendReport(offEmail, report);
   }
 
 }

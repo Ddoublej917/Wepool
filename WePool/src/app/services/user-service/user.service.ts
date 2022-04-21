@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,7 @@ export class UserService {
   //Pass in user, build url to get profile info
   async getUser() {
     //Loads employee profile using signed in email
-    return this.http.get(this._userUrl).toPromise()
-    .then(
-      res => { // Success
-        return parseJSON(res);
-      }
-    );
-    /*return this.http.post("http://localhost:8000/employee/profile",
+    return this.http.post("http://localhost:8000/employee/profile",
     {
       "workEmail": localStorage.getItem("email")
     }).toPromise() //Converts to readable JSON
@@ -27,20 +21,20 @@ export class UserService {
       res => { // Success
         return parseJSON(res);
       }
-    );*/
+    );
   } 
 
   //Compares preferences between user and group and returns the amount of matches
   async comparePrefs(group: any): Promise<number>{
     //Load user and store preferences
     let userData = await this.getUser();
-    userData = userData.Preferences;
+    //userData = userData.preferences;
     //Load group preferences
     let groupData = group.Preferences;
     let count = 3;
     //Compares matching info from preferences
     console.log("User data: " + userData.preferencesId)
-    /*if (Math.abs(userData.talkativeness-groupData.talkativeness) <= 1) {
+    if (Math.abs(userData.talkativeness-groupData.talkativeness) <= 1) {
       count++;
     }
     if (Math.abs(userData.music-groupData.music) <= 1) {
@@ -50,8 +44,8 @@ export class UserService {
     }
     if (userData.food != groupData.food || userData.smoking != groupData.smoking || userData.mask != groupData.mask) {
       count = 0;
-    }*/
-    return 6;
+    }
+    return count;
   }
 
   async updateUserProfile(userInfo) {
@@ -78,9 +72,8 @@ export class UserService {
   //Checks if user is in group or not
   async isInGroup() {
     let user = await this.getUser();
-    console.log(user);
-    console.log("Carpool group ID: " + user.CarpoolGroupID);
-    if (user.CarpoolGroupId == 0) {
+    console.log("Carpool group ID: " + user.carpoolGroupId);
+    if (user.carpoolGroupId == 0) {
       return false;
     } else {
       return true;

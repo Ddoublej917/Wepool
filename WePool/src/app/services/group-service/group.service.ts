@@ -29,20 +29,14 @@ export class GroupService {
   //Gets group based off user
   async getGroup() {
     //Load user
-    //let user = localStorage.getItem("email");
+    let user = localStorage.getItem("email");
     //Returns group using work email as ID
-    /*return this.http.post("http://localhost:8000/employee/carpool-group", {
+    return this.http.post("http://localhost:8000/employee/carpool-group", {
       "WorkEmail": user
     }).toPromise()
     .then(
       res => { // Success
         console.log(res);
-        return parseJSON(res);
-      }
-    );*/
-    return this.http.get(this._groupUrl).toPromise()
-    .then(
-      res => { // Success
         return parseJSON(res);
       }
     );
@@ -58,7 +52,6 @@ export class GroupService {
   
   //Get groups from company
   async getGroups() {
-    /*
     //Load user
     let user = await this.userService.getUser();
     //Load company from user
@@ -73,21 +66,15 @@ export class GroupService {
         console.log(res);
         return parseJSON(res);
       }
-    );*/
-    return this.http.get(this._groupsUrl).toPromise()
-    .then(
-      res => { // Success
-        return parseJSON(res);
-      }
     );
   }  
 
   //Sends user report to company
-  async sendReport(offEmail: string, report : string) {
+  sendReport(offEmail: string, report : string) {
     //Load user
     let user = localStorage.getItem("email");
     console.log("Petitioner email: " + user + "/nOffender email: " + offEmail + "/nReport: " + report);
-    await this.http.post("http://localhost:8000/employee/report", {
+    this.http.post("http://localhost:8000/employee/report", {
       "PetitionerEmail": user,
       "OffenderEmail": offEmail,
       "IssueDescription": report
