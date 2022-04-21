@@ -30,7 +30,7 @@ func GetCarpoolGroupsByCompanyName(c *gin.Context) {
 	}
 
 	var company model.Company
-	result := model.DB.Preload("CarpoolGroups").Preload("CarpoolGroups.Company").Preload("CarpoolGroups.Location").Preload("CarpoolGroups.Preferences").Where("name = ?", input.Name).First(&company)
+	result := model.DB.Preload("CarpoolGroups").Preload("CarpoolGroups.Company").Preload("CarpoolGroups.Location").Preload("CarpoolGroups.Preferences").Preload("CarpoolGroups.Employees.Profile").Where("name = ?", input.Name).First(&company)
 	if result.RecordNotFound() {
 		c.JSON(http.StatusNotFound, "")
 		return

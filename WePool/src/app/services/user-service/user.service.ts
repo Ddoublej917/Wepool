@@ -28,9 +28,9 @@ export class UserService {
   async comparePrefs(group: any): Promise<number>{
     //Load user and store preferences
     let userData = await this.getUser();
-    //userData = userData.preferences;
+    userData = userData.preferences;
     //Load group preferences
-    let groupData = group.Preferences;
+    let groupData = group.preferences;
     let count = 3;
     //Compares matching info from preferences
     if (Math.abs(userData.talkativeness-groupData.talkativeness) <= 1) {

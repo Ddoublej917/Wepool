@@ -18,12 +18,12 @@ export class GroupViewComponent implements OnInit {
     //Load in groups based on company
     this.groups = await this.groupService.getGroups();
     console.log(this.groups[0])
-    console.log(this.matches)
     for(let i: number = 0; i < this.groups.length; i++) {
         //Compare preferences from user with each group
         let val = await this.userService.comparePrefs(this.groups[i]);
         this.matches.push({"index": i, "matches": val});
     }
+    console.log("1")
     //Sort group matches by most preferences matched
     this.matches.sort(function (a, b) {
         if (a.matches < b.matches)
