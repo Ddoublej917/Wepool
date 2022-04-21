@@ -34,10 +34,16 @@ func ConnectDatabaseForTesting() {
 		panic("Failed to connect to database!")
 	}
 	database.AutoMigrate(
-		&Employee{},
-		&Location{},
+		&CarpoolGroup{},
 		&Company{},
+		&Employee{},
+		&Homelocation{},
+		&Location{},
+		&Preferences{},
+		&Profile{},
+		&Report{},
 		&Session{},
+		&Worklocation{},
 	)
 
 	DB = database
