@@ -98,6 +98,7 @@ Update an employee's preferences
 May return OK, BadRequest, Unauthorized, or NotFound.
 */
 func UpdateEmployeePreferences(c *gin.Context) {
+	fmt.Println("TEST")
 	var employee model.Employee
 	var EmployeePreferences EmployeePreferences
 

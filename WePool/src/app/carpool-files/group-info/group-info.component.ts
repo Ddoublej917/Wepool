@@ -14,12 +14,14 @@ export class GroupInfoComponent implements OnInit {
 
   constructor(public groupService : GroupService, public userService: UserService) { }
 
-   phoneNums: string[] = [];
+  phoneNums: string[] = [];
 
   async ngOnInit(): Promise<void> {
+    //Loads in user's group employees
     await this.groupService.getGroup().then(data => {
       this.group = data.Employees; 
     });
+    //Parses each employees phone number to display properly
     for (let i = 0; i < this.group.length; i++) {
       this.phoneNums.push(this.userService.parsePhoneNumber(this.group[i].Profile.PhoneNumber));
     }

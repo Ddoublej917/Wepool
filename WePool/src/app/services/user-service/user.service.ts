@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { GroupService } from '../group-service/group.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -9,22 +8,15 @@ export class UserService {
 
   private _userUrl = "./assets/data/user-data.json";
 
-  constructor(private http: HttpClient, public groupService: GroupService) { }
+  constructor(private http: HttpClient) { }
 
   //Pass in user, build url to get profile info
-  async getUser(user : string) {
-    let url = user;
-    /*return this.http.post("http://localhost:8000/employee/profile",
+  async getUser() {
+    //Loads employee profile using signed in email
+    return this.http.post("http://localhost:8000/employee/profile",
     {
-      "workEmail": user
-    }).toPromise()
-    .then(
-      res => { // Success
-        console.log(res);
-        return parseJSON(res);
-      }
-    );*/
-    return this.http.get(this._userUrl).toPromise()
+      "workEmail": localStorage.getItem("email")
+    }).toPromise() //Converts to readable JSON
     .then(
       res => { // Success
         return parseJSON(res);
@@ -34,22 +26,39 @@ export class UserService {
 
   //Compares preferences between user and group and returns the amount of matches
   async comparePrefs(group: any): Promise<number>{
-    let userData = await this.getUser("renzo");
-    userData = userData.Preferences;
-    let groupData = group.Preferences;
+    //Load user and store preferences
+    let userData = await this.getUser();
+    userData = userData.preferences;
+    //Load group preferences
+    let groupData = group.preferences;
     let count = 3;
-    if (Math.abs(userData[5]-groupData[5]) <= 1) {
+    //Compares matching info from preferences
+    if (Math.abs(userData.talkativeness-groupData.talkativeness) <= 1) {
       count++;
     }
-    if (Math.abs(userData[6]-groupData[6]) <= 1) {
+    if (Math.abs(userData.music-groupData.music) <= 1) {
       count++;
-    }    if (Math.abs(userData[7]-groupData[7]) <= 1) {
+    }    if (Math.abs(userData.temperature-groupData.temperature) <= 1) {
       count++;
     }
-    if (userData[9] != groupData[9] || userData[10] != groupData[10] || userData[11] != groupData[11]) {
+    if (userData.food != groupData.food || userData.smoking != groupData.smoking || userData.mask != groupData.mask) {
       count = 0;
     }
     return count;
+  }
+
+  async updateUserProfile(userInfo) {
+    //Loads work email of signed in user
+    let workEmail = localStorage.getItem("email");
+    console.log("Updating " + workEmail + " with new preferences.")
+    //Updates employee profile using form
+    await this.http.put("http://localhost:8000/employee/preferences", {
+      "workEmail": workEmail,
+      "preferences": userInfo.preferences,
+      "homeLocation": userInfo.homeLocation,
+      "profile": userInfo.profile,
+      "workLocation": userInfo.workLocation
+    });
   }
 
   //Converts phone number to formatted version
@@ -57,6 +66,16 @@ export class UserService {
     let formattedNum = "";
     formattedNum += "(" + phoneNum.substring(0,3) + ")" + phoneNum.substring(3,6) + "-" + phoneNum.substring(6,10);
     return formattedNum;
+  }
+
+  //Checks if user is in group or not
+  async isInGroup() {
+    let user = await this.getUser();
+    if (user.carpoolGroupId == 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 

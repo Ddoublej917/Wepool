@@ -25,7 +25,6 @@ export class QuestionLoaderComponent implements OnInit {
   //Pushes results to survey base component to be used, displays values in console temporarily to show it is working
   pushResults() {
     this.newItemEvent.emit(this.items);
-    console.log(this.items);
   }
 
 }

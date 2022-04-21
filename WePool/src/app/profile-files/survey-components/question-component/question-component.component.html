@@ -25,7 +25,7 @@
                 <mat-form-field appearance="fill">
                     <mat-label style="color:white">Company</mat-label>
                     <mat-select style="color:white" (selectionChange)="updateCompany($event)">
-                        <mat-option style="color:white; background-color: #8a46b8;" class="companys" *ngFor="let company of companys" [value]="company.value">
+                        <mat-option style="color:white; background-color: blue;" class="companys" *ngFor="let company of companys" [value]="company.value">
                           {{company.value}}
                         </mat-option>
                     </mat-select>

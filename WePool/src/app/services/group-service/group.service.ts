@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UserService } from '../user-service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,50 +10,84 @@ export class GroupService {
   private _groupUrl = "./assets/data/group-data.json";
   private _groupsUrl = "./assets/data/groups-data.json";
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient, public userService: UserService) { }
 
   //User joins group using their id and groups id
-  joinGroup(buttonID : number, groups : any) {
+  async joinGroup(buttonID : number, groups : any) {
     //Load user data using state
-    let user = "renzo"
+    let user = localStorage.getItem("email");
     //Group ID
     let group = groups[buttonID].groupData.id;
     //Add user to group
+    await this.http.post( "http://localhost:8000/add-employee-to-carpool-group", {
+      "workEmail": user,
+      "carpoolGroupID": group
+    });
     console.log("Adding " + user + " to group " + group);
   }
 
   //Gets group based off user
   async getGroup() {
-    return this.http.get(this._groupUrl).toPromise()
+    //Load user
+    let user = localStorage.getItem("email");
+    //Returns group using work email as ID
+    return this.http.post("http://localhost:8000/employee/carpool-group", {
+      "workEmail": user
+    }).toPromise()
     .then(
       res => { // Success
+        console.log(res);
         return parseJSON(res);
       }
     );
   }
   
-  //Pass in group, build url to get group preferences
+  //Gets group preferences from user
   async getGroupPreferences(group : string) {
-    let url = group;
-    return this.http.get(this._groupUrl).toPromise()
-    .then(
-      res => { // Success
-        return parseJSON(res).Preferences;
-      }
-    );
+    //Loads in group
+    let prefs = await this.getGroup();
+    //Returns preferences from group
+    return prefs.Preferences;
   } 
   
   //Get groups from company
-  async getGroups(group: string) {
-    let url = group;
-    return this.http.get(this._groupsUrl).toPromise()
+  async getGroups() {
+    //Load user
+    let user = await this.userService.getUser();
+    //Load company from user
+    let company = user.company.name;
+    console.log("Getting groups from " + company);
+    //Get list of groups pertaining to company current user is in
+    return await this.http.post( "http://localhost:8000/get-carpool-groups-by-company-name", {
+      "name": "Google"
+    }).toPromise()
     .then(
       res => { // Success
         return parseJSON(res);
       }
     );
+  }  
+
+  //Sends user report to company
+  sendReport(offEmail: string, report : string) {
+    //Load user
+    let user = localStorage.getItem("email");
+    console.log("Petitioner email: " + user + "/nOffender email: " + offEmail + "/nReport: " + report);
+    this.http.post("http://localhost:8000/employee/report", {
+      "petitionerEmail": user,
+      "offenderEmail": offEmail,
+      "issueDescription": report
+    });
   }
 
+  //Adds group using user ID
+  addGroup() {
+    let user = localStorage.getItem("email");
+    this.http.post("http://localhost:8000/employee/carpoolgroup", {
+      "workEmail": user,
+      "carCapacity": 4
+    })
+  }
 }
 
 function parseJSON(data: any) {

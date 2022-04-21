@@ -1,2 +1,3 @@
+export { UserReportComponent } from "./user-report/user-report.component";
 export { GroupViewComponent } from "./group-view/group-view.component";
 export { JoinGroupComponent } from "./join-group/join-group.component";

@@ -2,12 +2,10 @@
 <div [ngSwitch]="userType" class="type">
     <span *ngSwitchCase="'signedIn'">
         <group-view></group-view>
-    </span>
-    <span *ngSwitchCase="'loggedOut'" class="infoText">
-        <h1>Please log in!</h1>
+        <add-group></add-group>
     </span>
     <span *ngSwitchCase="'groupSelected'" class="infoText">
-        <h3>Group already selected!</h3>
+        <user-report></user-report>
     </span>
 </div>
 </header>

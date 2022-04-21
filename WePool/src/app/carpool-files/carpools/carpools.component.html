@@ -1,2 +1,9 @@
-<group-router></group-router>
-<group-info class="groupInfo" [panelState]="false"></group-info>
+<div [ngSwitch]="userType" class="type">
+    <span *ngSwitchCase="'signedIn'">
+        <div>Please select a group!</div>>
+    </span>
+    <span *ngSwitchCase="'groupSelected'">
+        <group-router></group-router>
+        <group-info class="groupInfo" [panelState]="false"></group-info>
+    </span>
+</div>

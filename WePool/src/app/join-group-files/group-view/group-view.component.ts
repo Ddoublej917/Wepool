@@ -15,21 +15,24 @@ export class GroupViewComponent implements OnInit {
   matches: {index: number, matches: number}[] = [];
 
   async ngOnInit(): Promise<void> {
-    this.groups = await this.groupService.getGroups("one");
+    //Load in groups based on company
+    this.groups = await this.groupService.getGroups();
+    console.log(this.groups[0])
     for(let i: number = 0; i < this.groups.length; i++) {
-        console.log(this.groups[i]);
+        //Compare preferences from user with each group
         let val = await this.userService.comparePrefs(this.groups[i]);
-        console.log(val);
         this.matches.push({"index": i, "matches": val});
     }
+    console.log("1")
+    //Sort group matches by most preferences matched
     this.matches.sort(function (a, b) {
         if (a.matches < b.matches)
             return 1;
         if (a.matches > b.matches)
             return -1;
         return 0;
-    })
-    console.log(this.matches);
+    });
+    console.log("Matches: " + this.matches);
   }
 
   //Add user to group
