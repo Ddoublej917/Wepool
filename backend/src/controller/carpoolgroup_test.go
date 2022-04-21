@@ -11,7 +11,7 @@ import (
 	"wepool.com/src/model"
 )
 
-var company1 = model.Company{
+var carpoolgroup_company1 = model.Company{
 	Name:          "company1",
 	Domain:        "company.1",
 	Locations:     []model.Location{},
@@ -20,7 +20,7 @@ var company1 = model.Company{
 	Reports:       []model.Report{},
 }
 
-var company2 = model.Company{
+var carpoolgroup_company2 = model.Company{
 	Name:          "company2",
 	Domain:        "company.2",
 	Locations:     []model.Location{},
@@ -29,12 +29,12 @@ var company2 = model.Company{
 	Reports:       []model.Report{},
 }
 
-var group1a = model.CarpoolGroup{
+var carpoolgroup_group1a = model.CarpoolGroup{
 	ID:            10,
 	Created:       0,
 	Employees:     []model.Employee{},
-	CompanyID:     company1.ID,
-	Company:       company1,
+	CompanyID:     carpoolgroup_company1.ID,
+	Company:       carpoolgroup_company1,
 	LocationID:    0,
 	Location:      model.Location{},
 	Preferences:   model.Preferences{},
@@ -42,12 +42,12 @@ var group1a = model.CarpoolGroup{
 	CarCapacity:   0,
 }
 
-var group2a = model.CarpoolGroup{
+var carpoolgroup_group2a = model.CarpoolGroup{
 	ID:            20,
 	Created:       0,
 	Employees:     []model.Employee{},
-	CompanyID:     company2.ID,
-	Company:       company2,
+	CompanyID:     carpoolgroup_company2.ID,
+	Company:       carpoolgroup_company2,
 	LocationID:    0,
 	Location:      model.Location{},
 	Preferences:   model.Preferences{},
@@ -55,12 +55,12 @@ var group2a = model.CarpoolGroup{
 	CarCapacity:   0,
 }
 
-var group2b = model.CarpoolGroup{
+var carpoolgroup_group2b = model.CarpoolGroup{
 	ID:            21,
 	Created:       0,
 	Employees:     []model.Employee{},
-	CompanyID:     company2.ID,
-	Company:       company2,
+	CompanyID:     carpoolgroup_company2.ID,
+	Company:       carpoolgroup_company2,
 	LocationID:    0,
 	Location:      model.Location{},
 	Preferences:   model.Preferences{},
@@ -68,7 +68,7 @@ var group2b = model.CarpoolGroup{
 	CarCapacity:   0,
 }
 
-var user1 = model.Employee{
+var carpoolgroup_user1 = model.Employee{
 	WorkEmail:      "alice@company.1",
 	Password:       "abcd",
 	Preferences:    model.Preferences{},
@@ -81,7 +81,7 @@ var user1 = model.Employee{
 	ProfileID:      0,
 	Reports:        []model.Report{},
 	CompanyID:      0,
-	Company:        company1,
+	Company:        carpoolgroup_company1,
 }
 
 /*
@@ -94,14 +94,14 @@ func TestGetCarpoolGroupsByCompanyName(t *testing.T) {
 	teardownTest := SetupTest(t)
 	defer teardownTest(t)
 
-	company1.CarpoolGroups = append(company1.CarpoolGroups, group1a)
-	company2.CarpoolGroups = append(company2.CarpoolGroups, group2a)
-	company2.CarpoolGroups = append(company2.CarpoolGroups, group2b)
-	model.DB.FirstOrCreate(&company1)
-	model.DB.FirstOrCreate(&company2)
-	model.DB.FirstOrCreate(&group1a)
-	model.DB.FirstOrCreate(&group2a)
-	model.DB.FirstOrCreate(&group2b)
+	carpoolgroup_company1.CarpoolGroups = append(carpoolgroup_company1.CarpoolGroups, carpoolgroup_group1a)
+	carpoolgroup_company2.CarpoolGroups = append(carpoolgroup_company2.CarpoolGroups, carpoolgroup_group2a)
+	carpoolgroup_company2.CarpoolGroups = append(carpoolgroup_company2.CarpoolGroups, carpoolgroup_group2b)
+	model.DB.FirstOrCreate(&carpoolgroup_company1)
+	model.DB.FirstOrCreate(&carpoolgroup_company2)
+	model.DB.FirstOrCreate(&carpoolgroup_group1a)
+	model.DB.FirstOrCreate(&carpoolgroup_group2a)
+	model.DB.FirstOrCreate(&carpoolgroup_group2b)
 
 	_, engine := gin.CreateTestContext(httptest.NewRecorder())
 	engine.GET("/GetCarpoolGroupsByCompanyName", GetCarpoolGroupsByCompanyName)
@@ -138,7 +138,7 @@ func TestGetCarpoolGroupsByCompanyName(t *testing.T) {
 	})
 
 	input1 := GetCarpoolGroupsByCompanyNameInput{
-		Name: company1.Name,
+		Name: carpoolgroup_company1.Name,
 	}
 
 	json.NewEncoder(&buf).Encode(input1)
@@ -156,7 +156,7 @@ func TestGetCarpoolGroupsByCompanyName(t *testing.T) {
 	})
 
 	input2 := GetCarpoolGroupsByCompanyNameInput{
-		Name: company2.Name,
+		Name: carpoolgroup_company2.Name,
 	}
 
 	json.NewEncoder(&buf).Encode(input2)
@@ -184,8 +184,8 @@ func TestAddEmployeeToCarpoolGroup(t *testing.T) {
 	teardownTest := SetupTest(t)
 	defer teardownTest(t)
 
-	model.DB.FirstOrCreate(&company1)
-	model.DB.FirstOrCreate(&group1a)
+	model.DB.FirstOrCreate(&carpoolgroup_company1)
+	model.DB.FirstOrCreate(&carpoolgroup_group1a)
 
 	_, engine := gin.CreateTestContext(httptest.NewRecorder())
 	engine.POST("/AddEmployeeToCarpoolGroup", AddEmployeeToCarpoolGroup)
@@ -193,7 +193,7 @@ func TestAddEmployeeToCarpoolGroup(t *testing.T) {
 	var request *http.Request
 
 	groupNotFoundInput := AddUserToCarpoolGroupInput{
-		WorkEmail:      user1.WorkEmail,
+		WorkEmail:      carpoolgroup_user1.WorkEmail,
 		CarpoolGroupID: 9999,
 	}
 
@@ -213,7 +213,7 @@ func TestAddEmployeeToCarpoolGroup(t *testing.T) {
 
 	userNotFoundInput := AddUserToCarpoolGroupInput{
 		WorkEmail:      "oops@oops.oops",
-		CarpoolGroupID: group1a.ID,
+		CarpoolGroupID: carpoolgroup_group1a.ID,
 	}
 
 	json.NewEncoder(&buf).Encode(userNotFoundInput)
