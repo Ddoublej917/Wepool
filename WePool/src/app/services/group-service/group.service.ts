@@ -20,8 +20,8 @@ export class GroupService {
     let group = groups[buttonID].groupData.id;
     //Add user to group
     await this.http.post( "http://localhost:8000/add-employee-to-carpool-group", {
-      "WorkEmail": user,
-      "CarpoolGroupID": group
+      "workEmail": user,
+      "carpoolGroupID": group
     });
     console.log("Adding " + user + " to group " + group);
   }
@@ -32,7 +32,7 @@ export class GroupService {
     let user = localStorage.getItem("email");
     //Returns group using work email as ID
     return this.http.post("http://localhost:8000/employee/carpool-group", {
-      "WorkEmail": user
+      "workEmail": user
     }).toPromise()
     .then(
       res => { // Success
@@ -59,7 +59,7 @@ export class GroupService {
     console.log("Getting groups from " + company);
     //Get list of groups pertaining to company current user is in
     return await this.http.post( "http://localhost:8000/get-carpool-groups-by-company-name", {
-      "Name": "Google"
+      "name": "Google"
     }).toPromise()
     .then(
       res => { // Success
@@ -75,9 +75,9 @@ export class GroupService {
     let user = localStorage.getItem("email");
     console.log("Petitioner email: " + user + "/nOffender email: " + offEmail + "/nReport: " + report);
     this.http.post("http://localhost:8000/employee/report", {
-      "PetitionerEmail": user,
-      "OffenderEmail": offEmail,
-      "IssueDescription": report
+      "petitionerEmail": user,
+      "offenderEmail": offEmail,
+      "issueDescription": report
     });
   }
 

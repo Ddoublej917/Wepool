@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"wepool.com/src/model"
 )
@@ -29,7 +30,7 @@ func GetCarpoolGroupsByCompanyName(c *gin.Context) {
 	}
 
 	var company model.Company
-	result := model.DB.Preload("CarpoolGroups").Where("name = ?", input.Name).First(&company)
+	result := model.DB.Preload("CarpoolGroups").Preload("Company").Preload("Location").Preload("Preferences").Where("name = ?", input.Name).First(&company)
 	if result.RecordNotFound() {
 		c.JSON(http.StatusNotFound, "")
 		return

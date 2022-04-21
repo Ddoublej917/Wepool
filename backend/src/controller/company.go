@@ -13,7 +13,6 @@ type CreateCompanyInput struct {
 	Domain string `json:"domain"`
 }
 
-
 type CompanyInput struct {
 	ID uint `json:"companyID" binding:"required"`
 }
@@ -37,6 +36,11 @@ func CreateCompany(c *gin.Context) {
 	c.JSON(http.StatusOK, company)
 }
 
+/*
+POST /company/report
+Gets all the reports/issues filed at a company for use by moderators
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func GetCompanyReports(c *gin.Context) {
 	var company model.Company
 	var CompanyInput CompanyInput
@@ -44,14 +48,13 @@ func GetCompanyReports(c *gin.Context) {
 	if err := c.ShouldBindJSON(&CompanyInput); err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
-	}		
-	result:= model.DB.Preload("Reports").Where("id= ?", CompanyInput.ID).First(&company)	
-	if result.Error != nil {	
+	}
+	result := model.DB.Preload("Reports").Where("id= ?", CompanyInput.ID).First(&company)
+	if result.Error != nil {
 		fmt.Println("Error", result.Error)
 		c.JSON(http.StatusNotFound, result.Error)
 		return
 	}
-	
-	c.JSON(200, company.Reports);
-	return
+
+	c.JSON(200, company.Reports)
 }

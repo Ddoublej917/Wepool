@@ -11,28 +11,6 @@ import (
 	"wepool.com/src/model"
 )
 
-func SetupTest(tb testing.TB) func(tb testing.TB) {
-	model.ConnectDatabaseForTesting()
-
-	return func(tb testing.TB) {
-		model.DB.Close()
-	}
-}
-
-// Helper function to process a request and test its response
-func testHTTPResponse(t *testing.T, r *gin.Engine, req *http.Request, f func(w *httptest.ResponseRecorder) bool) {
-
-	// Create a response recorder
-	w := httptest.NewRecorder()
-
-	// Create the service and process the above request.
-	r.ServeHTTP(w, req)
-
-	if !f(w) {
-		t.Fail()
-	}
-}
-
 /*
 POST /login
 Given an employee and a password, attempt to create a new session and provide
@@ -57,7 +35,7 @@ func TestLogin(t *testing.T) {
 
 	json.NewEncoder(&buf).Encode(badPasswordInput)
 	request, _ = http.NewRequest(http.MethodPost, "/login", &buf)
-	testHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
+	TestHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
 		expectedStatus := http.StatusUnauthorized
 		statusOK := w.Code == expectedStatus
 		if !statusOK {
@@ -68,7 +46,7 @@ func TestLogin(t *testing.T) {
 
 	json.NewEncoder(&buf).Encode(badEmployeeInput)
 	request, _ = http.NewRequest(http.MethodPost, "/login", &buf)
-	testHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
+	TestHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
 		expectedStatus := http.StatusUnauthorized
 		statusOK := w.Code == expectedStatus
 		if !statusOK {
@@ -79,7 +57,7 @@ func TestLogin(t *testing.T) {
 
 	json.NewEncoder(&buf).Encode(goodInput)
 	request, _ = http.NewRequest(http.MethodPost, "/login", &buf)
-	testHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
+	TestHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
 		expectedStatus := http.StatusOK
 		statusOK := w.Code == expectedStatus
 		if !statusOK {
@@ -108,7 +86,7 @@ func TestLogout(t *testing.T) {
 
 	json.NewEncoder(&buf).Encode(fakeAuthenticationInput)
 	request, _ = http.NewRequest(http.MethodPost, "/logout", &buf)
-	testHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
+	TestHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
 		expectedStatus := http.StatusOK
 		statusOK := w.Code == expectedStatus
 		if !statusOK {
@@ -119,7 +97,7 @@ func TestLogout(t *testing.T) {
 
 	json.NewEncoder(&buf).Encode(realAuthenticationInput)
 	request, _ = http.NewRequest(http.MethodPost, "/logout", &buf)
-	testHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
+	TestHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
 		expectedStatus := http.StatusOK
 		statusOK := w.Code == expectedStatus
 		if !statusOK {
@@ -143,7 +121,7 @@ func TestUserSignup(t *testing.T) {
 
 	json.NewEncoder(&buf).Encode(employeeInput)
 	request, _ = http.NewRequest(http.MethodPost, "/employee", &buf)
-	testHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
+	TestHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
 		expectedStatus := http.StatusCreated
 		statusOK := w.Code == expectedStatus
 		if !statusOK {
@@ -171,7 +149,7 @@ func TestUserLogin(t *testing.T) {
 
 	json.NewEncoder(&buf).Encode(badEmployeeInput)
 	request, _ = http.NewRequest(http.MethodPost, "/login", &buf)
-	testHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
+	TestHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
 		expectedStatus := http.StatusUnauthorized
 		statusOK := w.Code == expectedStatus
 		if !statusOK {
@@ -182,7 +160,7 @@ func TestUserLogin(t *testing.T) {
 
 	json.NewEncoder(&buf).Encode(badPasswordInput)
 	request, _ = http.NewRequest(http.MethodPost, "/login", &buf)
-	testHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
+	TestHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
 		expectedStatus := http.StatusUnauthorized
 		statusOK := w.Code == expectedStatus
 		if !statusOK {
@@ -193,7 +171,7 @@ func TestUserLogin(t *testing.T) {
 
 	json.NewEncoder(&buf).Encode(goodInput)
 	request, _ = http.NewRequest(http.MethodPost, "/login", &buf)
-	testHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
+	TestHTTPResponse(t, engine, request, func(w *httptest.ResponseRecorder) bool {
 		expectedStatus := http.StatusOK
 		statusOK := w.Code == expectedStatus
 		if !statusOK {

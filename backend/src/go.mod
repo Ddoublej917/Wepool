@@ -7,6 +7,8 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 )
 
+require github.com/jinzhu/now v1.1.4 // indirect
+
 require (
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-contrib/sse v0.1.0 // indirect
@@ -23,7 +25,8 @@ require (
 	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 // indirect
 	github.com/ugorji/go/codec v1.1.7 // indirect
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
-	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect
+	golang.org/x/exp v0.0.0-20220414153411-bcd21879b8fd
+	golang.org/x/sys v0.0.0-20211019181941-9d821ace8654 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 	gorm.io/gorm v1.23.4
 )

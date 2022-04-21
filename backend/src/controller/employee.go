@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"wepool.com/src/model"
 )
@@ -23,12 +24,12 @@ type AuthenticationInput struct {
 }
 
 type CarpoolGroupEmployees struct {
-    WorkEmail string `json:"workEmail" binding:"required"`
+	WorkEmail string `json:"workEmail" binding:"required"`
 }
 
 type Preferences struct {
 	Talkativeness int    `json:"talkativeness"` // Talkativeness, on a scale of 1 to 5 (highest)
-	Music         int   `json:"music"`         // Whether or not music should be played
+	Music         int    `json:"music"`         // Whether or not music should be played
 	Temperature   int    `json:"temperature"`   // Temperature preference, in degrees Celsius
 	Mask          bool   `json:"mask"`          // Whether or not a mask is required
 	Food          bool   `json:"food"`          // Whether or not food is allowed
@@ -37,37 +38,42 @@ type Preferences struct {
 }
 
 type Homelocation struct {
-	Address  string `json:"address"`
+	Address string `json:"address"`
 }
 
 type Location struct {
-	Address  string `json:"address"`
+	Address string `json:"address"`
 }
 
 type Profile struct {
-	FirstName  string `json:"firstName"`
+	FirstName string `json:"firstName"`
 	LastName  string `json:"lastName"`
 }
 
 type EmployeePreferences struct {
-	WorkEmail string `json:"workEmail" binding:"required"`
-	Preferences Preferences `json:"preferences" binding:"required"`
+	WorkEmail    string       `json:"workEmail" binding:"required"`
+	Preferences  Preferences  `json:"preferences" binding:"required"`
 	Homelocation Homelocation `json:"homeLocation" binding:"required"`
-	Location Location `json:"workLocation" binding:"required"`
-	Profile Profile `json:"profile" binding:"required"`
+	Location     Location     `json:"workLocation" binding:"required"`
+	Profile      Profile      `json:"profile" binding:"required"`
 }
 
 type Report struct {
-	PetitionerEmail      string         `json:"petitionerEmail"`
-	OffenderEmail        string         `json:"offenderEmail"`
-	IssueDescription     string     `json:"issueDescription"`
+	PetitionerEmail  string `json:"petitionerEmail"`
+	OffenderEmail    string `json:"offenderEmail"`
+	IssueDescription string `json:"issueDescription"`
 }
 
 type EmployeeInput struct {
-	WorkEmail string `json:"workEmail" binding:"required"`
-	CarCapacity  uint8 `json:"carCapacity"`
+	WorkEmail   string `json:"workEmail" binding:"required"`
+	CarCapacity uint8  `json:"carCapacity"`
 }
 
+/*
+POST /employee/profile
+Get an employee's profile
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func GetEmployeeProfile(c *gin.Context) {
 	var employee model.Employee
 	var EmployeeInput CarpoolGroupEmployees
@@ -75,18 +81,22 @@ func GetEmployeeProfile(c *gin.Context) {
 	if err := c.ShouldBindJSON(&EmployeeInput); err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
-	}	
-	result:= model.DB.Preload("Profile").Preload("Preferences").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)	
-	if result.Error != nil {	
+	}
+	result := model.DB.Preload("Profile").Preload("Preferences").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)
+	if result.Error != nil {
 		fmt.Println("Error", result.Error)
 		c.JSON(http.StatusNotFound, result.Error)
 		return
 	}
-	
+
 	c.JSON(200, employee)
-	return
 }
 
+/*
+PUT /employee/preferences
+Update an employee's preferences
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func UpdateEmployeePreferences(c *gin.Context) {
 	var employee model.Employee
 	var EmployeePreferences EmployeePreferences
@@ -94,23 +104,27 @@ func UpdateEmployeePreferences(c *gin.Context) {
 	if err := c.ShouldBindJSON(&EmployeePreferences); err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
-	}	
+	}
 
 	if err := model.DB.Preload("Homelocation").Preload("Preferences").Preload("Profile").Preload("CarpoolGroup.Location").Where("work_email = ?", EmployeePreferences.WorkEmail).First(&employee).Error; err != nil {
-	  c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
-	  return
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
 	}
 
 	// TODO: Optimize by creating a DB session to do the transactions
-	model.DB.Model(&employee.Homelocation).Updates(EmployeePreferences.Homelocation);
-	model.DB.Model(&employee.Preferences).Updates(EmployeePreferences.Preferences);
-	model.DB.Model(&employee.Profile).Updates(EmployeePreferences.Profile);
-	model.DB.Model(&employee.CarpoolGroup.Location).Updates(EmployeePreferences.Location);
+	model.DB.Model(&employee.Homelocation).Updates(EmployeePreferences.Homelocation)
+	model.DB.Model(&employee.Preferences).Updates(EmployeePreferences.Preferences)
+	model.DB.Model(&employee.Profile).Updates(EmployeePreferences.Profile)
+	model.DB.Model(&employee.CarpoolGroup.Location).Updates(EmployeePreferences.Location)
 
 	c.JSON(200, &employee)
-	return
 }
 
+/*
+POST /employee/carpool-group
+Get an employee's carpool group info
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func GetEmployeeCarpoolGroupInfo(c *gin.Context) {
 	var employee model.Employee
 	var EmployeeInput CarpoolGroupEmployees
@@ -118,18 +132,22 @@ func GetEmployeeCarpoolGroupInfo(c *gin.Context) {
 	if err := c.ShouldBindJSON(&EmployeeInput); err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
-	}		
-	result:= model.DB.Preload("CarpoolGroup").Preload("CarpoolGroup.Employees").Preload("CarpoolGroup.Location").Preload("CarpoolGroup.Employees.Homelocation").Preload("CarpoolGroup.Employees.Profile").Preload("CarpoolGroup.Employees.Company").Preload("CarpoolGroup.Preferences").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)	
-	if result.Error != nil {	
+	}
+	result := model.DB.Preload("CarpoolGroup").Preload("CarpoolGroup.Employees").Preload("CarpoolGroup.Location").Preload("CarpoolGroup.Employees.Homelocation").Preload("CarpoolGroup.Employees.Profile").Preload("CarpoolGroup.Employees.Company").Preload("CarpoolGroup.Preferences").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)
+	if result.Error != nil {
 		fmt.Println("Error", result.Error)
 		c.JSON(http.StatusNotFound, result.Error)
 		return
 	}
-	
+
 	c.JSON(200, employee)
-	return
 }
 
+/*
+POST /employee/carpoolgroup
+Create a new carpool group 
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func CreateCarpoolGroup(c *gin.Context) {
 	var employee model.Employee
 	var EmployeeInput EmployeeInput
@@ -137,25 +155,28 @@ func CreateCarpoolGroup(c *gin.Context) {
 	if err := c.ShouldBindJSON(&EmployeeInput); err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
-	}		
-	result:= model.DB.Preload("Preferences").Preload("CarpoolGroup.Location").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)	
-	if result.Error != nil {	
+	}
+	result := model.DB.Preload("Preferences").Preload("CarpoolGroup.Location").Where("work_email= ?", EmployeeInput.WorkEmail).First(&employee)
+	if result.Error != nil {
 		c.JSON(http.StatusNotFound, result.Error)
-		return
 	}
-	
+
 	carpoolGroup := model.CarpoolGroup{
-		CompanyID: employee.CompanyID,
+		CompanyID:     employee.CompanyID,
 		PreferencesID: employee.PreferencesID,
-		LocationID: employee.CarpoolGroup.LocationID,
-		CarCapacity: EmployeeInput.CarCapacity,
+		LocationID:    employee.CarpoolGroup.LocationID,
+		CarCapacity:   EmployeeInput.CarCapacity,
 	}
-	model.DB.Create(&carpoolGroup);
+	model.DB.Create(&carpoolGroup)
 
 	c.JSON(200, carpoolGroup)
-	return
 }
 
+/*
+POST /employee/report
+Create a new report/issue filing a complaint against an employee 
+May return OK, BadRequest, Unauthorized, or NotFound.
+*/
 func CreateEmployeeReport(c *gin.Context) {
 	var ReportInput Report
 	var Employee model.Employee
@@ -163,9 +184,9 @@ func CreateEmployeeReport(c *gin.Context) {
 	if err := c.ShouldBindJSON(&ReportInput); err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
-	}		
-	result:= model.DB.Where("work_email= ?", ReportInput.PetitionerEmail).First(&Employee)	
-	if result.Error != nil {	
+	}
+	result := model.DB.Where("work_email= ?", ReportInput.PetitionerEmail).First(&Employee)
+	if result.Error != nil {
 		fmt.Println("Error", result.Error)
 		c.JSON(http.StatusNotFound, result.Error)
 		return
@@ -175,12 +196,11 @@ func CreateEmployeeReport(c *gin.Context) {
 		OffenderEmail:    ReportInput.OffenderEmail,
 		IssueDescription: ReportInput.IssueDescription,
 		EmployeeID:       Employee.ID,
-		CompanyID: Employee.CompanyID,
+		CompanyID:        Employee.CompanyID,
 	}
-	model.DB.Create(&report);
+	model.DB.Create(&report)
 
 	c.JSON(200, report)
-	return
 }
 
 /*
@@ -285,7 +305,7 @@ func UserLogin(c *gin.Context) {
 	var employee model.Employee
 	var input CreateEmployeeInput
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -294,5 +314,5 @@ func UserLogin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": employee})
+	c.JSON(http.StatusOK, employee)
 }
