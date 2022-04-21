@@ -15,6 +15,7 @@ export interface Issue {
   position: number;
   company: string;
   reporter: string;
+  offender: string;
   message: string;
 }
 
@@ -40,10 +41,10 @@ const GROUP_DATA: Carpool[] = [
 ];
 
 const ISSUE_DATA: Issue[] = [
-  {position: 1, company: 'University of Florida', reporter: 'Daniel Johnson', message: 'Reckless driving'},
-  {position: 2, company: 'University of Florida', reporter: 'Daniel Johnson', message: 'Got ghosted'},
-  {position: 3, company: 'University of Florida', reporter: 'Daniel Johnson', message: 'Dropped off at wrong place'},
-  {position: 4, company: 'University of Florida', reporter: 'Daniel Johnson', message: 'I want to switch groups'},
+  {position: 1, company: 'University of Florida', reporter: 'danny@gmail.com', offender: 'chris@ufl.edu', message: 'Reckless driving'},
+  {position: 2, company: 'University of Central Florida', reporter: 'ganesh@ucf.edu', offender: 'danny@gmail.com', message: 'Got ghosted'},
+  {position: 3, company: 'Google', reporter: 'danny@gmail.com', offender: 'renzo@yahoo.com', message: 'Dropped off at wrong place'},
+  {position: 4, company: 'University of Florida', reporter: 'renzo12345@ufl.edu', offender: 'tree@gmail.com', message: 'I want to switch groups'},
 ];
 
 
@@ -55,11 +56,12 @@ const ISSUE_DATA: Issue[] = [
 export class ModerationComponent {
   displayedColumns: string[] = ['position', 'company', 'driver', 'pas1', 'pas2', 'pas3', 'action1', 'action2'];
   groupColumns: string[] = ['position', 'company', 'driver', 'pas1', 'pas2', 'pas3'];
-  issueColumns: string[] = ['position', 'company', 'reporter', 'message', 'action1'];
+  issueColumns: string[] = ['position', 'company', 'reporter', 'offender', 'message', 'action1'];
   dataSource = CARPOOL_DATA;
   dataSource2 = ISSUE_DATA;
   dataSource3 = GROUP_DATA;
   dataSource4 = CARPOOL_DATA2;
+  
 
 
   deleteRow= function (position: number) {
