@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserService } from '../user-service/user.service';
 
@@ -63,7 +63,6 @@ export class GroupService {
     }).toPromise()
     .then(
       res => { // Success
-        console.log(res);
         return parseJSON(res);
       }
     );

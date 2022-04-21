@@ -33,7 +33,6 @@ export class UserService {
     let groupData = group.Preferences;
     let count = 3;
     //Compares matching info from preferences
-    console.log("User data: " + userData.preferencesId)
     if (Math.abs(userData.talkativeness-groupData.talkativeness) <= 1) {
       count++;
     }
@@ -72,7 +71,6 @@ export class UserService {
   //Checks if user is in group or not
   async isInGroup() {
     let user = await this.getUser();
-    console.log("Carpool group ID: " + user.carpoolGroupId);
     if (user.carpoolGroupId == 0) {
       return false;
     } else {

@@ -17,6 +17,8 @@ export class GroupViewComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     //Load in groups based on company
     this.groups = await this.groupService.getGroups();
+    console.log(this.groups[0])
+    console.log(this.matches)
     for(let i: number = 0; i < this.groups.length; i++) {
         //Compare preferences from user with each group
         let val = await this.userService.comparePrefs(this.groups[i]);
